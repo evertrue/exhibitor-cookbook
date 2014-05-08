@@ -11,7 +11,7 @@ template ::File.join(exhibitor_build_path, 'build.gradle') do
   action :create
 end
 
-include_recipe "zookeeper::gradle"
+include_recipe "exhibitor::gradle"
 
 jar_file = "#{exhibitor_build_path}/build/libs/exhibitor-#{node[:exhibitor][:version]}.jar"
 
