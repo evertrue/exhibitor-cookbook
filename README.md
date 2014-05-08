@@ -1,16 +1,11 @@
 Description
 ===========
-Installs and configures ZooKeeper and Exhibitor.
+Installs and configures Exhibitor.
 
 Requirements
 ============
 java
-
-Errata
-======
-
-- version 1.4.7 on the community site is in fact version 1.4.8. The result of
-of duplicating information.
+zookeeper
 
 Attributes
 ==========
@@ -18,7 +13,7 @@ To override exhibitor command line options, add them to node[:exhibitor][:opts].
 See https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor for more detauls
 
 :snapshot_dir, :transaction_dir: and :log_index_dir in node[:exhibitor] should be set to something sane.
-Linkedin recommend putting snapshots and logs on a different device than transactions for a write-heavy workload.
+LinkedIn recommend putting snapshots and logs on a different device than transactions for a write-heavy workload.
 https://cwiki.apache.org/confluence/display/KAFKA/Operations#Operations-OperationalizingZookeeper
 
 node[:exhibitor][:defaultconfig] contains config that exhibitor will be initialized with.
