@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.run_list = [
-      'recipe[zookeeper::default]'
+      'recipe[exhibitor::default]'
     ]
   end
 end

@@ -17,5 +17,5 @@ suites:
   - name: default
     run_list:
       - recipe[apt::default]
-      - recipe[zookeeper::default]
+      - recipe[exhibitor::default]
     attributes:
