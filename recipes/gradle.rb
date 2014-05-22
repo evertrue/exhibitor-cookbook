@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: zookeeper
+# Cookbook Name:: exhibitor
 # Recipe:: gradle
 #
 # Copyright 2013, Simple Finance Technology Corp.

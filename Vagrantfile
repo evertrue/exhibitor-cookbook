@@ -2,7 +2,7 @@
 
 box = ENV['VAGRANT_BOX'] || 'opscode_ubuntu-12.04_provisionerless'
 Vagrant.configure('2') do |config|
-  config.vm.hostname = 'zookeeper'
+  config.vm.hostname = 'exhibitor'
   config.vm.box = box
   config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/#{box}.box"
   config.omnibus.chef_version = :latest
@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.run_list = [
-      'recipe[zookeeper::default]'
+      'recipe[exhibitor::default]'
     ]
   end
 end
