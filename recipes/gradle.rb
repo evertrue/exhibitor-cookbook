@@ -19,21 +19,21 @@
 
 dest_file = "gradle-#{node[:gradle][:version]}.zip"
 remote_file ::File.join(Chef::Config[:file_cache_path], dest_file) do
-  owner "root"
-  mode "0644"
+  owner 'root'
+  mode 00644
   source node[:gradle][:mirror]
   checksum node[:gradle][:checksum]
   action :create
 end
 
-package "unzip" do
+package 'unzip' do
   action :install
 end
 
 dest_path = ::File.join(Chef::Config[:file_cache_path], "gradle-#{node[:gradle][:version]}")
 unless ::File.exists?(dest_path)
-  execute "unzip gradle" do
-    user "root"
+  execute 'unzip gradle' do
+    user 'root'
     cwd Chef::Config[:file_cache_path]
     command "unzip #{dest_file}"
   end
