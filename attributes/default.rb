@@ -26,11 +26,13 @@ default[:exhibitor][:cli] = {
 }
 
 # Example --config S3 values
+#   node[:exhibitor][:cli][:configtype] = 's3'
 #   node[:exhibitor][:s3][:key] = 'key'
 #   node[:exhibitor][:s3][:secret] = 'secret'
-#   node[:exhibitor][:cli][:s3config] = 'example-bucket/fake/path'
+#   node[:exhibitor][:cli][:s3config] = 'example-bucket:fake/path'
 #   node[:exhibitor][:cli][:s3region] = 'us-west-1'
 
+# What gets rendered to node[:exhibitor][:cli][:defaultconfig]
 default[:exhibitor][:config] = {
   cleanup_period_ms: 5 * 60 * 1000,
   check_ms: '30000',
