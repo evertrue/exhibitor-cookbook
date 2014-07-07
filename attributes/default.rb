@@ -21,7 +21,6 @@ default[:exhibitor][:cli] = {
   port: '8080',
   hostname: node[:ipaddress],
   configtype: 'file',
-  fsconfigdir: '/tmp',
   defaultconfig: File.join(node[:exhibitor][:install_dir], 'exhibitor.properties')
 }
 

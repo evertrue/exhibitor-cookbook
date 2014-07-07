@@ -51,26 +51,30 @@ else
   include_recipe 'exhibitor::_exhibitor_build'
 end
 
-if node[:exhibitor][:cli][:configtype] != 'file'
-  node.default[:exhibitor][:cli].delete(:fsconfigdir)
-end
-
 case node[:exhibitor][:cli][:configtype]
 when 's3'
-  if node[:exhibitor][:s3key] && node[:exhibitor][:s3secret]
-    node.default[:exhibitor][:cli][:s3credentials] = s3_creds
-    file ::File.join(node[:exhibitor][:install_dir], 'exhibitor.s3.properties') do
+  node.default[:exhibitor][:cli][:configtype] = 's3'
+  if node[:exhibitor][:s3]
+    s3_properties = ::File.join(node[:exhibitor][:install_dir], 'exhibitor.s3.properties')
+    node.default[:exhibitor][:cli][:s3credentials] = s3_properties
+    file s3_properties do
       owner node[:exhibitor][:user]
       mode 00400
-      content render_s3_credentials
-s3key: node[:exhibitor][:s3]
-com.netflix.exhibitor.s3.access-key-id=
-com.netflix.exhibitor.s3.access-secret-key=<%= @s3secret %>
-s3secret: node[:exhibitor][:s3secret]
-      eos
+      content(render_s3_credentials(node[:exhibitor][:s3]))
+      action :create
     end
+  else
+    Chef::Log.warn('No S3 credentials given. Assuming instance has permissions to S3.')
   end
 when 'file'
+  node.default[:exhibitor][:cli][:fsconfigdir] = '/tmp'
+  node.default[:exhibitor][:cli][:fsconfigname] = 'exhibitor.properties'
+  file ::File.join(node[:exhibitor][:cli][:fsconfigdir], node[:exhibitor][:cli][:fsconfigname]) do
+    owner node[:exhibitor][:user]
+    mode 00400
+    content(node[:exhibitor][:config]) # TODO: What should this be?
+    action :create
+  end
 else
   Chef::Log.error('Unsure what configtype to use (S3 or file) for Exhibitor, but will continue.')
 end
