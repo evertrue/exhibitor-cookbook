@@ -16,13 +16,18 @@
 
 include_recipe 'runit::default'
 
+cli_options = node[:exhibitor][:cli].sort_by {|k,v| k}.collect do |opt, val|
+  "--#{opt.to_s} #{val}"
+end.join(' ')
+
 runit_service 'exhibitor' do
   default_logger true
   options({
     user: node[:exhibitor][:user],
-    jar: exhibitor_jar,
-    log4j_props: log4j_props,
-    opts: node[:exhibitor][:opts]
+    jar: ::File.join(node[:exhibitor][:install_dir],
+                     "#{node[:exhibitor][:version]}.jar"),
+    log4j: ::File.join(node[:exhibitor][:install_dir], 'log4j.properties'),
+    cli: cli_options
   })
   action [:enable, :start]
 end
