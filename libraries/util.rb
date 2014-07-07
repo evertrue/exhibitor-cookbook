@@ -7,7 +7,7 @@ module Exhibitor
     end
 
     def should_install_exhibitor?(jar_dest)
-      return !File.exists?(build_file) || !File.exists?(jar_dest)
+      return !File.exists?(jar_dest)
     end
 
     def render_properties_file(config={})
