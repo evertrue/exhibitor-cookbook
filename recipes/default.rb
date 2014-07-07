@@ -15,6 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+class Chef::Resource
+  include Exhibitor::Util
+end
+
 package 'patch' do
   action :nothing
 end.run_action(:install)
@@ -28,12 +32,11 @@ include_recipe 'zookeeper::default'
   node[:exhibitor][:log_index_dir]
 ].uniq.each do |dir|
   directory dir do
-    owner node[:exhibitor][:user]
     mode 00700
   end
 end
 
-node.default[:exhibitor][:jar_dest] = ::File.join(node[:exhibitor][:install_dir],
+node.override[:exhibitor][:jar_dest] = ::File.join(node[:exhibitor][:install_dir],
                                                   "#{node[:exhibitor][:version]}.jar")
 
 if node[:exhibitor][:install_method] == 'download'
@@ -69,18 +72,15 @@ s3secret: node[:exhibitor][:s3secret]
   end
 when 'file'
 else
-  Chef::Log.warn('Unsure what configtype to use (S3 or file) for Exhibitor; choosing file.')
-
+  Chef::Log.error('Unsure what configtype to use (S3 or file) for Exhibitor, but will continue.')
 end
 
 template ::File.join(node[:exhibitor][:install_dir], 'log4j.properties') do
   source 'log4j.properties.erb'
   owner 'root'
   group 'root'
-  mode 00644
-  variables(
-    loglevel: node[:exhibitor][:loglevel]
-  )
+  mode 00600
+  variables(loglevel: node[:exhibitor][:loglevel])
 end
 
 # Write these values out as late as possible since their values can change.
@@ -94,5 +94,5 @@ node.default[:exhibitor][:config].merge!({
 file node[:exhibitor][:cli][:defaultconfig] do
   owner node[:exhibitor][:user]
   mode 00400
-  content render_config(node[:exhibitor][:config])
+  content(render_config(node[:exhibitor][:config]))
 end
