@@ -32,6 +32,8 @@ include_recipe 'zookeeper::default'
   node[:exhibitor][:log_index_dir]
 ].uniq.each do |dir|
   directory dir do
+    owner node[:exhibitor][:user]
+    recursive true
     mode 00700
   end
 end
@@ -53,7 +55,6 @@ end
 
 case node[:exhibitor][:cli][:configtype]
 when 's3'
-  node.default[:exhibitor][:cli][:configtype] = 's3'
   if node[:exhibitor][:s3]
     s3_properties = ::File.join(node[:exhibitor][:install_dir], 'exhibitor.s3.properties')
     node.default[:exhibitor][:cli][:s3credentials] = s3_properties
@@ -69,10 +70,11 @@ when 's3'
 when 'file'
   node.default[:exhibitor][:cli][:fsconfigdir] = '/tmp'
   node.default[:exhibitor][:cli][:fsconfigname] = 'exhibitor.properties'
+
   file ::File.join(node[:exhibitor][:cli][:fsconfigdir], node[:exhibitor][:cli][:fsconfigname]) do
     owner node[:exhibitor][:user]
     mode 00400
-    content(node[:exhibitor][:config]) # TODO: What should this be?
+    content(render_properties_file(node[:exhibitor][:config]))
     action :create
   end
 else
@@ -98,5 +100,5 @@ node.default[:exhibitor][:config].merge!({
 file node[:exhibitor][:cli][:defaultconfig] do
   owner node[:exhibitor][:user]
   mode 00400
-  content(render_config(node[:exhibitor][:config]))
+  content(render_properties_file(node[:exhibitor][:config]))
 end
