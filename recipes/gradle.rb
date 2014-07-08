@@ -35,7 +35,7 @@ if should_install_gradle?
   execute 'unzip gradle' do
     user 'root'
     cwd Chef::Config[:file_cache_path]
-    command "unzip -f ./gradle.zip"
+    command "unzip ./gradle.zip"
     action :run
   end
 
