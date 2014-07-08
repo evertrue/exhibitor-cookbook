@@ -23,7 +23,7 @@ if should_install_gradle?
     action :install
   end
 
-  node.default[:gradle][:mirror] = "http://services.gradle.org/distributions/gradle-#{default[:gradle][:version]}-bin.zip"
+  node.default[:gradle][:mirror] = "http://services.gradle.org/distributions/gradle-#{node[:gradle][:version]}-bin.zip"
   remote_file ::File.join(Chef::Config[:file_cache_path], 'gradle.zip') do
     owner 'root'
     mode 00644
@@ -35,9 +35,15 @@ if should_install_gradle?
   execute 'unzip gradle' do
     user 'root'
     cwd Chef::Config[:file_cache_path]
-    command "unzip ./gradle.zip"
+    command "unzip -f ./gradle.zip"
     action :run
   end
 
-  ENV['PATH'] += ":#{Chef::Config[:file_cache_path]}/gradle/bin"
+  gradle_binary = ::File.join(Chef::Config[:file_cache_path],
+                              "gradle-#{node[:gradle][:version]}",
+                              'bin', 'gradle')
+
+  link '/usr/local/bin/gradle' do
+    to gradle_binary
+  end
 end
