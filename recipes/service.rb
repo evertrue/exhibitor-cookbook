@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'runit::default'
+class Chef::Resource
+  include Exhibitor::Util
+end
 
-cli_options = node[:exhibitor][:cli].sort_by {|k,v| k}.collect do |opt, val|
-  "--#{opt.to_s} #{val}"
-end.join(' ')
+include_recipe 'runit::default'
 
 runit_service 'exhibitor' do
   default_logger true
@@ -27,7 +27,7 @@ runit_service 'exhibitor' do
     jar: ::File.join(node[:exhibitor][:install_dir],
                      "#{node[:exhibitor][:version]}.jar"),
     log4j: ::File.join(node[:exhibitor][:install_dir], 'log4j.properties'),
-    cli: cli_options
+    cli: format_cli_options(node[:exhibitor][:cli])
   })
   action [:enable, :start]
 end

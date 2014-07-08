@@ -18,6 +18,7 @@ UI](https://github.com/Netflix/exhibitor/wiki/Configuration-UI) and [Running
 Exhibitor](https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor) docs
 for more information.
 
-## Author and License Simple Finance <ops@simple.com>
+## Author and License 
+Simple Finance <ops@simple.com>
 
 Apache License, Version 2.0
