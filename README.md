@@ -1,35 +1,29 @@
-Description
-===========
-Installs and configures Exhibitor.
+# Exhibitor
+Chef cookbook for installing and managing Netflix's
+[Exhibitor](https://github.com/Netflix/exhibitor), a co-process for Apache
+Zookeeper.
 
-Requirements
-============
-java
-zookeeper
+## Usage
+In particular, two key attribute hashes drive this cookbook.
 
-Attributes
-==========
-To override exhibitor command line options, add them to node[:exhibitor][:opts].
-See https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor for more detauls
+The first is `node[:exhibitor][:cli]`, which specifies command-line options
+that will be used when Exhibitor is run. Some are necessary, and in particular
+the defaults provided will ensure Exhibitor is able to run.
 
-:snapshot_dir, :transaction_dir: and :log_index_dir in node[:exhibitor] should be set to something sane.
-LinkedIn recommend putting snapshots and logs on a different device than transactions for a write-heavy workload.
-https://cwiki.apache.org/confluence/display/KAFKA/Operations#Operations-OperationalizingZookeeper
+The second is `node[:exhibitor][:config]`, which manages the configuration
+parameters that get rendered to the `exhibitor.properties` file. The defaults
+are sane starting values.
 
-node[:exhibitor][:defaultconfig] contains config that exhibitor will be initialized with.
-See https://github.com/Netflix/exhibitor/wiki/Configuration-UI and 
-https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor under *Default Property Names*.
+We recommend running `exhibitor::default` to get a basic, default setup of
+Exhibitor going, as well as calling `exhibitor::service` if you want the
+service to boot up in the same run. These recipes are split for workflows
+within, for example, AMI pipelines.
 
-Usage
-=====
+More documentation to come. Please see the [Exhibitor
+docs](https://github.com/Netflix/exhibitor/wiki) for more
+information on the specifics of running Exhibitor.
 
-discover_zookeepers
--------------------
+## Author and License 
+Simple Finance <ops@simple.com>
 
-This cookbook comes with a library to help your other cookbooks discovery the members of your ZooKeeper ensamble.
-Call it with the host of (one) of your exhibitors. We use round-robin dns so it would look like
-
-    > discover_zookeepers("http://exhibitor.example.com:8080")
-    {"servers":["10.0.1.0","10.0.1.1","10.0.1.2"],"port":2181}
-
-for details on the response format, see https://github.com/Netflix/exhibitor/wiki/REST-Entities under Servers
+Apache License, Version 2.0

@@ -1,9 +1,7 @@
+# recipes/default.rb
 #
-# Cookbook Name:: exhibitor
-# Recipe:: default
-#
-# Copyright 2013, Simple Finance Technology Corp.
-# Copyright 2014, Continuuity, Inc.
+# Copyright 2014, Simple Finance Technology Corp.
+# Copyright 2014, Continuuity Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +14,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-include_recipe "runit"
+class Chef::Resource
+  include Exhibitor::Util
+end
 
 package 'patch' do
   action :nothing
 end.run_action(:install)
 
-include_recipe "zookeeper::default"
+include_recipe 'zookeeper::default'
 
 [
   node[:exhibitor][:install_dir],
@@ -34,82 +33,72 @@ include_recipe "zookeeper::default"
 ].uniq.each do |dir|
   directory dir do
     owner node[:exhibitor][:user]
-    mode 00755
+    recursive true
+    mode 00700
   end
 end
 
-node.default[:exhibitor][:jar_dest] = exhibitor_jar = ::File.join(node[:exhibitor][:install_dir], "#{node[:exhibitor][:version]}.jar")
+node.override[:exhibitor][:jar_dest] = ::File.join(node[:exhibitor][:install_dir],
+                                                  "#{node[:exhibitor][:version]}.jar")
 
-if !::File.exists?(exhibitor_jar)
-  if node[:exhibitor][:install_method] == 'download'
-    remote_file ::File.join(exhibitor_jar) do
-      owner 'root'
-      mode 00644
-      source node[:exhibitor][:mirror]
-      checksum node[:exhibitor][:checksum]
+if node[:exhibitor][:install_method] == 'download'
+  remote_file node[:exhibitor][:jar_dest] do
+    owner 'root'
+    mode 00600
+    source node[:exhibitor][:mirror]
+    checksum node[:exhibitor][:checksum]
+    action :create
+  end
+else
+  include_recipe 'exhibitor::_exhibitor_build'
+end
+
+case node[:exhibitor][:cli][:configtype]
+when 's3'
+  if node[:exhibitor][:s3]
+    s3_properties = ::File.join(node[:exhibitor][:install_dir], 'exhibitor.s3.properties')
+    node.default[:exhibitor][:cli][:s3credentials] = s3_properties
+    file s3_properties do
+      owner node[:exhibitor][:user]
+      mode 00400
+      content(render_s3_credentials(node[:exhibitor][:s3]))
       action :create
     end
-  else  #build exhibitor jar using gradle
-    include_recipe 'exhibitor::_exhibitor_build'
+  else
+    Chef::Log.warn('No S3 credentials given. Assuming instance has permissions to S3.')
   end
-end
+when 'file'
+  node.default[:exhibitor][:cli][:fsconfigdir] = '/tmp'
+  node.default[:exhibitor][:cli][:fsconfigname] = 'exhibitor.properties'
 
-check_script = ::File.join(node[:exhibitor][:script_dir], 'check-local-zk.py')
-template check_script do
-  owner node[:exhibitor][:user]
-  mode 00744
-  variables(
-    exhibitor_port: node[:exhibitor][:opts][:port],
-    localhost: node[:exhibitor][:opts][:hostname] )
-end
-
-if node[:exhibitor][:opts][:configtype] != 'file'
-  node.default[:exhibitor][:opts].delete(:fsconfigdir)
-end
-
-if node[:exhibitor][:opts][:configtype] == 's3' &&
-    node[:exhibitor].attribute?(:s3key) &&
-    node[:exhibitor].attribute?(:s3secret)
-  s3_creds = "#{node[:exhibitor][:install_dir]}/exhibitor.s3.properties"
-  node.default[:exhibitor][:opts][:s3credentials] = s3_creds
-  template s3_creds do
-    source 'exhibitor.s3.properties.erb'
+  file ::File.join(node[:exhibitor][:cli][:fsconfigdir], node[:exhibitor][:cli][:fsconfigname]) do
     owner node[:exhibitor][:user]
-    mode 00440
-    variables(
-      s3key: node[:exhibitor][:s3key],
-      s3secret: node[:exhibitor][:s3secret] )
+    mode 00400
+    content(render_properties_file(node[:exhibitor][:config]))
+    action :create
   end
+else
+  Chef::Log.error('Unsure what configtype to use (S3 or file) for Exhibitor, but will continue.')
 end
 
-log4j_props = ::File.join(node[:exhibitor][:install_dir], 'log4j.properties')
-template log4j_props do
+template ::File.join(node[:exhibitor][:install_dir], 'log4j.properties') do
   source 'log4j.properties.erb'
   owner 'root'
   group 'root'
-  mode 00644
-  variables(
-      loglevel: node[:exhibitor][:loglevel]
-  )
+  mode 00600
+  variables(loglevel: node[:exhibitor][:loglevel])
 end
 
-template node[:exhibitor][:opts][:defaultconfig] do
-  source 'exhibitor.properties.erb'
+# Write these values out as late as possible since their values can change.
+node.default[:exhibitor][:config].merge!({
+  log_index_directory: node[:exhibitor][:log_index_dir],
+  zookeeper_log_directory: node[:exhibitor][:transaction_dir],
+  zookeeper_snapshot_directory: node[:exhibitor][:snapshot_dir],
+  zookeeper_install_directory: "#{node[:zookeeper][:install_dir]}/*",
+})
+
+file node[:exhibitor][:cli][:defaultconfig] do
   owner node[:exhibitor][:user]
-  mode 00644
-  variables(
-    snapshot_dir: node[:exhibitor][:snapshot_dir],
-    transaction_dir: node[:exhibitor][:transaction_dir],
-    log_index_dir: node[:exhibitor][:log_index_dir])
-end
-
-runit_service 'exhibitor' do
-  default_logger true
-  options({
-    user: node[:exhibitor][:user],
-    jar: exhibitor_jar,
-    log4j_props: log4j_props,
-    opts: node[:exhibitor][:opts]
-  })
-  action [:enable, :start]
+  mode 00400
+  content(render_properties_file(node[:exhibitor][:config]))
 end

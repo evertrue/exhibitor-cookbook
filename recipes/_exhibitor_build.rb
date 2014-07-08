@@ -1,32 +1,56 @@
-exhibitor_build_path = ::File.join(Chef::Config[:file_cache_path], 'exhibitor')
+# recipes/_exhibitor_build.rb
+#
+# Copyright 2014, Simple Finance Technology Corp.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-directory exhibitor_build_path do
-  owner node[:exhibitor][:user]
-  mode 00755
+class Chef::Recipe
+  include Exhibitor::Util
 end
 
-template ::File.join(exhibitor_build_path, 'build.gradle') do
-  variables(
-    version: node[:exhibitor][:version] )
-  action :create
-end
+if should_install_exhibitor?(node[:exhibitor][:jar_dest])
+  # We need Gradle to build the artifact.
+  include_recipe 'exhibitor::gradle'
 
-include_recipe 'exhibitor::gradle'
+  build_path = ::File.join(Chef::Config[:file_cache_path], 'exhibitor')
 
-jar_file = "#{exhibitor_build_path}/build/libs/exhibitor-#{node[:exhibitor][:version]}.jar"
+  directory build_path do
+    owner node[:exhibitor][:user]
+    mode 00700
+    action :create
+  end
 
-if !::File.exists?(jar_file)
+  template ::File.join(build_path, 'build.gradle') do
+    owner 'root'
+    variables(version: node[:exhibitor][:version])
+    action :create
+  end
+
   execute 'build exhibitor' do
     user 'root'
-    cwd exhibitor_build_path
+    cwd build_path
     command 'gradle jar'
   end
-end
 
-exhibitor_jar = node[:exhibitor][:jar_dest]
+  gradle_artifact = ::File.join(build_path,
+                                'build',
+                                'libs',
+                                "exhibitor-#{node[:exhibitor][:version]}.jar")
 
-if !::File.exists?(exhibitor_jar)
   execute 'move exhibitor jar' do
-    command "cp '#{jar_file}' '#{exhibitor_jar}' && chown '#{node[:exhibitor][:user]}:#{node[:exhibitor][:group]}' '#{exhibitor_jar}'"
+    command <<-eos
+cp #{gradle_artifact} #{node[:exhibitor][:jar_dest]}
+chown #{node[:exhibitor][:user]} #{node[:exhibitor][:jar_dest]}
+    eos
   end
 end

@@ -1,8 +1,6 @@
+# recipes/gradle.rb
 #
-# Cookbook Name:: exhibitor
-# Recipe:: gradle
-#
-# Copyright 2013, Simple Finance Technology Corp.
+# Copyright 2014, Simple Finance Technology Corp.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,28 +13,37 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-dest_file = "gradle-#{node[:gradle][:version]}.zip"
-remote_file ::File.join(Chef::Config[:file_cache_path], dest_file) do
-  owner 'root'
-  mode 00644
-  source node[:gradle][:mirror]
-  checksum node[:gradle][:checksum]
-  action :create
+class Chef::Recipe
+  include Exhibitor::Util
 end
 
-package 'unzip' do
-  action :install
-end
+if should_install_gradle?
+  package 'unzip' do
+    action :install
+  end
 
-dest_path = ::File.join(Chef::Config[:file_cache_path], "gradle-#{node[:gradle][:version]}")
-unless ::File.exists?(dest_path)
+  node.default[:gradle][:mirror] = "http://services.gradle.org/distributions/gradle-#{node[:gradle][:version]}-bin.zip"
+  remote_file ::File.join(Chef::Config[:file_cache_path], 'gradle.zip') do
+    owner 'root'
+    mode 00644
+    source node[:gradle][:mirror]
+    checksum node[:gradle][:checksum]
+    action :create
+  end
+
   execute 'unzip gradle' do
     user 'root'
     cwd Chef::Config[:file_cache_path]
-    command "unzip #{dest_file}"
+    command "unzip ./gradle.zip"
+    action :run
+  end
+
+  gradle_binary = ::File.join(Chef::Config[:file_cache_path],
+                              "gradle-#{node[:gradle][:version]}",
+                              'bin', 'gradle')
+
+  link '/usr/local/bin/gradle' do
+    to gradle_binary
   end
 end
-
-ENV["PATH"] += ":#{dest_path}/bin"
