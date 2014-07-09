@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1
+* Set correct permissions for files Exhibitor needs to run (#7)
+* Set correct parameter name for zookeeper-data-directory (#6)
+
 ## 0.2.0
 * Massive cleanup and minor refactor
 * Service now activated in a separate `service` recipe
