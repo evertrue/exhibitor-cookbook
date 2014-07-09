@@ -73,7 +73,7 @@ when 'file'
 
   file ::File.join(node[:exhibitor][:cli][:fsconfigdir], node[:exhibitor][:cli][:fsconfigname]) do
     owner node[:exhibitor][:user]
-    mode 00400
+    mode 00600
     content(render_properties_file(node[:exhibitor][:config]))
     action :create
   end
@@ -83,7 +83,7 @@ end
 
 template ::File.join(node[:exhibitor][:install_dir], 'log4j.properties') do
   source 'log4j.properties.erb'
-  owner 'root'
+  owner node[:exhibitor][:user]
   group 'root'
   mode 00600
   variables(loglevel: node[:exhibitor][:loglevel])
@@ -99,6 +99,6 @@ node.default[:exhibitor][:config].merge!({
 
 file node[:exhibitor][:cli][:defaultconfig] do
   owner node[:exhibitor][:user]
-  mode 00400
+  mode 00600
   content(render_properties_file(node[:exhibitor][:config]))
 end
