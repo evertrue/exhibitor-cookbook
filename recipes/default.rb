@@ -93,7 +93,7 @@ end
 node.default[:exhibitor][:config].merge!({
   log_index_directory: node[:exhibitor][:log_index_dir],
   zookeeper_log_directory: node[:exhibitor][:transaction_dir],
-  zookeeper_snapshot_directory: node[:exhibitor][:snapshot_dir],
+  zookeeper_data_directory: node[:exhibitor][:snapshot_dir],
   zookeeper_install_directory: "#{node[:zookeeper][:install_dir]}/*",
 })
 
