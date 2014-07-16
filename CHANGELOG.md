@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0
+* Exhibitor will now explicitly look for dataDir and dataLogDir attributes
+  under node[:zookeeper][:config], and prioritize them for calculated values.
+
 ## 0.2.1
 * Set correct permissions for files Exhibitor needs to run (#7)
 * Set correct parameter name for zookeeper-data-directory (#6)
