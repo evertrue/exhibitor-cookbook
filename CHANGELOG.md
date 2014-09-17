@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.1
+* Fixed bug wherein Exhibitor dearchive reference was incorrect (contributed by
+  @benley)
+
 ## 0.3.0
 * Exhibitor will now explicitly look for dataDir and dataLogDir attributes
   under node[:zookeeper][:config], and prioritize them for calculated values.

@@ -3,7 +3,7 @@ maintainer       'Simple Finance Technology Corp.'
 maintainer_email 'ops@simple.com'
 license          'Apache v2.0'
 description      'Installs Netflix Exhibitor'
-version          '0.3.0'
+version          '0.3.1'
 
 depends          'build-essential'
 depends          'java'
