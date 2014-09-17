@@ -3,7 +3,8 @@
 module Exhibitor
   module Util
     def should_install_gradle?
-      return !Dir.exists?(File.join(Chef::Config[:file_cache_path], 'gradle'))
+      return !Dir.exists?(File.join(Chef::Config[:file_cache_path],
+                                    "gradle-#{node[:gradle][:version]}"))
     end
 
     def should_install_exhibitor?(jar_dest)
