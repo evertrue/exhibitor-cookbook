@@ -16,3 +16,8 @@ chef-zookeeper*.tgz
 metadata.json
 .build
 Berksfile.lock
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
