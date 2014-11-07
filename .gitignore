@@ -1,6 +1,14 @@
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
 /cookbooks
 /.vagrant
 /.kitchen
+.kitchen.local.yml
 /.librarian
 /tmp
 Cheffile.lock
