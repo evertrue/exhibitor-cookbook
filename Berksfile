@@ -1,4 +1,4 @@
 source 'https://supermarket.getchef.com'
 
-cookbook 'zookeeper', git: 'git@github.com:SimpleFinance/chef-zookeeper.git'
+cookbook 'zookeeper', github: 'SimpleFinance/chef-zookeeper'
 metadata
