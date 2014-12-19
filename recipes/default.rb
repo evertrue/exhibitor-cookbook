@@ -23,7 +23,7 @@ package 'patch' do
   action :nothing
 end.run_action(:install)
 
-include_recipe 'zookeeper::default'
+include_recipe 'zookeeper::install'
 
 [
   node[:exhibitor][:install_dir],
