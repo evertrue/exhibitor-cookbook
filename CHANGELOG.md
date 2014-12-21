@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.0
+* Just run `install` instead of `default` recipe (contributed by
+  @DorianZaccaria)
+
 ## 0.3.1
 * Fixed bug wherein Exhibitor dearchive reference was incorrect (contributed by
   @benley)
