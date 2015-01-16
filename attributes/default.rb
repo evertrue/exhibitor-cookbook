@@ -26,8 +26,8 @@ default[:exhibitor][:cli] = {
 
 # Example --config S3 values
 #   node[:exhibitor][:cli][:configtype] = 's3'
-#   node[:exhibitor][:s3][:key] = 'key'
-#   node[:exhibitor][:s3][:secret] = 'secret'
+#   node[:exhibitor][:s3][:'access-key-id'] = 'key'
+#   node[:exhibitor][:s3][:'access-secret-key'] = 'secret'
 #   node[:exhibitor][:cli][:s3config] = 'example-bucket:fake/path'
 #   node[:exhibitor][:cli][:s3region] = 'us-west-1'
 
