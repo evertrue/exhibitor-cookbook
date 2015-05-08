@@ -19,6 +19,10 @@ class Chef::Resource
   include Exhibitor::Util
 end
 
+if node[:exhibitor][:lwrp_only]
+  return
+end
+
 package 'patch' do
   action :nothing
 end.run_action(:install)
