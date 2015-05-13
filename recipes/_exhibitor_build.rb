@@ -39,13 +39,13 @@ if should_install_exhibitor?(node[:exhibitor][:jar_dest])
   execute 'build exhibitor' do
     user 'root'
     cwd build_path
-    command 'gradle jar'
+    command 'gradle shadowJar'
   end
 
   gradle_artifact = ::File.join(build_path,
                                 'build',
                                 'libs',
-                                "exhibitor-#{node[:exhibitor][:version]}.jar")
+                                "exhibitor-#{node[:exhibitor][:version]}-all.jar")
 
   execute 'move exhibitor jar' do
     command <<-eos
