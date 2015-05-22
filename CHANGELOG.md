@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.4.1
+* Fix ownership of downloaded Exhibitor jar
+
 ## 0.4.0
 * Just run `install` instead of `default` recipe (contributed by
   @DorianZaccaria)
