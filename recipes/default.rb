@@ -43,7 +43,7 @@ node.override[:exhibitor][:jar_dest] = ::File.join(node[:exhibitor][:install_dir
 
 if node[:exhibitor][:install_method] == 'download'
   remote_file node[:exhibitor][:jar_dest] do
-    owner 'root'
+    owner node[:exhibitor][:user]
     mode 00600
     source node[:exhibitor][:mirror]
     checksum node[:exhibitor][:checksum]
@@ -84,7 +84,6 @@ end
 template ::File.join(node[:exhibitor][:install_dir], 'log4j.properties') do
   source 'log4j.properties.erb'
   owner node[:exhibitor][:user]
-  group 'root'
   mode 00600
   variables(loglevel: node[:exhibitor][:loglevel])
 end
