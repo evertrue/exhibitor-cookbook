@@ -1,7 +1,11 @@
 # CHANGELOG
 
-## 0.4.1
-* Fix ownership of downloaded Exhibitor jar
+## 0.5.0
+* Update to Exhibitor 1.5.5 (#18)
+    - Includes updates to build script, lifted directly from Exhibitor’s own script
+* Fix ownership of downloaded Exhibitor jar (#19)
+* Remove duplicate metadata.json file
+* Clean up and fix up Test Kitchen config
 
 ## 0.4.0
 * Just run `install` instead of `default` recipe (contributed by
