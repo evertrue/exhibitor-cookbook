@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+* Add attribute to set ZooKeeper to be managed by Exhibitor
+* Add `exhibitor::service` to default test suite
+* Use Chef Zero for Test Kitchen
+
 ## 0.5.0
 * Update to Exhibitor 1.5.5 (#18)
     - Includes updates to build script, lifted directly from Exhibitor’s own script
