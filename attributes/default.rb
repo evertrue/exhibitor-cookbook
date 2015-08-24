@@ -1,5 +1,8 @@
 # attributes/default.rb
 
+# Set Zookeeper to use Exhibitor as its service manager
+default[:zookeeper][:service_style] = 'exhibitor'
+
 # Gradle specifics for installation
 default[:gradle][:version] = '2.4'
 default[:gradle][:checksum] = 'c4eaecc621a81f567ded1aede4a5ddb281cc02a03a6a87c4f5502add8fc2f16f'
