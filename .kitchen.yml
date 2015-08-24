@@ -15,4 +15,5 @@ suites:
   - name: default
     run_list:
       - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
     attributes:
