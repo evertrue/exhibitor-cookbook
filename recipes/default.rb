@@ -19,7 +19,8 @@ class Chef::Resource
   include Exhibitor::Util
 end
 
-package 'patch' do
+package_name = node[:exhibitor][:patch_package] || 'patch'
+package package_name do
   action :nothing
 end.run_action(:install)
 

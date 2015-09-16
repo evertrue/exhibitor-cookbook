@@ -29,5 +29,7 @@ runit_service 'exhibitor' do
     log4j: ::File.join(node[:exhibitor][:install_dir], 'log4j.properties'),
     cli: format_cli_options(node[:exhibitor][:cli])
   })
-  action [:enable, :start]
+  actions = [:enable]
+  actions << :start if not node[:exhibitor][:no_start]
+  action actions
 end
