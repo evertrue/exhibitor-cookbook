@@ -48,9 +48,7 @@ if should_install_exhibitor?(node[:exhibitor][:jar_dest])
                                 "exhibitor-#{node[:exhibitor][:version]}-all.jar")
 
   execute 'move exhibitor jar' do
-    command <<-eos
-cp #{gradle_artifact} #{node[:exhibitor][:jar_dest]}
-chown #{node[:exhibitor][:user]} #{node[:exhibitor][:jar_dest]}
-    eos
+    command "cp #{gradle_artifact} #{node[:exhibitor][:jar_dest]} " \
+            "&& chown #{node[:exhibitor][:user]} #{node[:exhibitor][:jar_dest]}"
   end
 end
