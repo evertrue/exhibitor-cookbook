@@ -75,8 +75,6 @@ when 'file'
   file ::File.join(node[:exhibitor][:cli][:fsconfigdir], node[:exhibitor][:cli][:fsconfigname]) do
     owner node[:exhibitor][:user]
     mode 00600
-    content(render_properties_file(node[:exhibitor][:config]))
-    action :create
   end
 else
   Chef::Log.error('Unsure what configtype to use (S3 or file) for Exhibitor, but will continue.')
