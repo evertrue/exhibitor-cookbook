@@ -23,11 +23,11 @@ include_recipe 'runit::default'
 runit_service 'exhibitor' do
   default_logger true
   options(
-    user: node[:exhibitor][:user],
-    jar: ::File.join(node[:exhibitor][:install_dir],
-                     "#{node[:exhibitor][:version]}.jar"),
-    log4j: ::File.join(node[:exhibitor][:install_dir], 'log4j.properties'),
-    cli: format_cli_options(node[:exhibitor][:cli])
+    user: node['exhibitor']['user'],
+    jar: ::File.join(node['exhibitor']['install_dir'],
+                     "#{node['exhibitor']['version']}.jar"),
+    log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
+    cli: format_cli_options(node['exhibitor']['cli'])
   )
-  action node[:exhibitor][:service_actions]
+  action node['exhibitor']['service_actions']
 end
