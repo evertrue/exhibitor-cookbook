@@ -6,11 +6,11 @@ Zookeeper.
 ## Usage
 In particular, two key attribute hashes drive this cookbook.
 
-The first is `node[:exhibitor][:cli]`, which specifies command-line options
+The first is `node['exhibitor']['cli']`, which specifies command-line options
 that will be used when Exhibitor is run. Some are necessary, and in particular
 the defaults provided will ensure Exhibitor is able to run.
 
-The second is `node[:exhibitor][:config]`, which manages the configuration
+The second is `node['exhibitor']['config']`, which manages the configuration
 parameters that get rendered to the `exhibitor.properties` file. The defaults
 are sane starting values.
 
