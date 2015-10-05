@@ -88,12 +88,12 @@ template ::File.join(node[:exhibitor][:install_dir], 'log4j.properties') do
 end
 
 # Write these values out as late as possible since their values can change.
-node.default[:exhibitor][:config].merge!({
+node.default[:exhibitor][:config].merge!(
   log_index_directory: node[:exhibitor][:log_index_dir],
   zookeeper_log_directory: node[:zookeeper][:config][:dataLogDir] || node[:exhibitor][:transaction_dir],
   zookeeper_data_directory: node[:zookeeper][:config][:dataDir] || node[:exhibitor][:snapshot_dir],
   zookeeper_install_directory: "#{node[:zookeeper][:install_dir]}/*",
-})
+)
 
 file node[:exhibitor][:cli][:defaultconfig] do
   owner node[:exhibitor][:user]
