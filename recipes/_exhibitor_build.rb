@@ -27,13 +27,11 @@ if should_install_exhibitor?(node[:exhibitor][:jar_dest])
   directory build_path do
     owner node[:exhibitor][:user]
     mode 00700
-    action :create
   end
 
   template ::File.join(build_path, 'build.gradle') do
     owner 'root'
     variables(version: node[:exhibitor][:version])
-    action :create
   end
 
   execute 'build exhibitor' do

@@ -48,7 +48,6 @@ if node[:exhibitor][:install_method] == 'download'
     mode 00600
     source node[:exhibitor][:mirror]
     checksum node[:exhibitor][:checksum]
-    action :create
   end
 else
   include_recipe 'exhibitor::_exhibitor_build'
@@ -63,7 +62,6 @@ when 's3'
       owner node[:exhibitor][:user]
       mode 00400
       content(render_s3_credentials(node[:exhibitor][:s3]))
-      action :create
     end
   else
     Chef::Log.warn('No S3 credentials given. Assuming instance has permissions to S3.')

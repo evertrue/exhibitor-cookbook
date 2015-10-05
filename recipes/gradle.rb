@@ -29,14 +29,11 @@ if should_install_gradle?
     mode 00644
     source node[:gradle][:mirror]
     checksum node[:gradle][:checksum]
-    action :create
   end
 
   execute 'unzip gradle' do
-    user 'root'
     cwd Chef::Config[:file_cache_path]
     command "unzip ./gradle.zip"
-    action :run
   end
 
   gradle_binary = ::File.join(Chef::Config[:file_cache_path],
