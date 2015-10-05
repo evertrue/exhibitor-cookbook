@@ -33,7 +33,7 @@ if should_install_gradle?
 
   execute 'unzip gradle' do
     cwd Chef::Config[:file_cache_path]
-    command "unzip ./gradle.zip"
+    command 'unzip ./gradle.zip'
   end
 
   gradle_binary = ::File.join(Chef::Config[:file_cache_path],
