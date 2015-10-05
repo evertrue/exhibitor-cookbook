@@ -16,36 +16,35 @@
 # limitations under the License.
 #
 
-
 require 'net/http'
 require 'uri'
 
 class ExhibitorError < StandardError
 end
 
-
 def discover_zookeepers(exhibitor_host)
-    require 'json'
-    url = URI.join(exhibitor_host, '/exhibitor/v1/cluster/list')
-    begin
-      http = Net::HTTP.new(url.host, url.port)
-      http.read_timeout = http.open_timeout = 3
-      JSON.parse(http.get(url.path).body)
-    rescue StandardError => reason
-      raise ExhibitorError, reason
-    end
+  require 'json'
+  url = URI.join exhibitor_host, '/exhibitor/v1/cluster/list'
+
+  http = Net::HTTP.new url.host, url.port
+  http.read_timeout = http.open_timeout = 3
+
+  JSON.parse http.get(url.path).body
+rescue StandardError => reason
+  raise ExhibitorError, reason
 end
 
+# zookeepers: as returned from discover_zookeepers
+# chroot: optional chroot
+#
+# returns a zk connect string as used by kafka, and others
+# host1:port,...,hostN:port[/<chroot>]
 def zk_connect_str(zookeepers, chroot = nil)
-  # zookeepers: as returned from discover_zookeepers
-  # chroot: optional chroot
-  #
-  # returns a zk connect string as used by kafka, and others
-  # host1:port,...,hostN:port[/<chroot>]
+  zk_connect = zookeepers['servers'].collect do |server|
+    "#{server}:#{zookeepers['port']}"
+  end.sort.join ','
 
-  zk_connect = zookeepers["servers"].collect { |server| "#{server}:#{zookeepers['port']}" }.sort.join ","
-  if not chroot.nil?
-    zk_connect += "/#{chroot}"
-  end
+  zk_connect += "/#{chroot}" unless chroot.nil?
+
   zk_connect
 end
