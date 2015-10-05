@@ -1,7 +1,12 @@
 # CHANGELOG
 
 ## Unreleased
+
+## 0.6.0
+* Add pins to all cookbook dependencies to avoid breaking changes
+* Add attribute to control Exhibitor service actions
 * Add attribute to set ZooKeeper to be managed by Exhibitor
+* Fix Chef overwriting shared config (#20)
 * Add `exhibitor::service` to default test suite
 * Use Chef Zero for Test Kitchen
 
