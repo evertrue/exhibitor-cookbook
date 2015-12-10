@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.7.0
+* Add Serverspec tests (#5)
+* Bump `zookeeper` to ~> 3.0 (#23)
+
 ## 0.6.0
 * Add pins to all cookbook dependencies to avoid breaking changes
 * Add attribute to control Exhibitor service actions
