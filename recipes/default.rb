@@ -21,8 +21,8 @@ end
 
 package_name = node['exhibitor']['patch_package'] || 'patch'
 package package_name do
-  action :nothing
-end.run_action(:install)
+  action :install
+end
 
 include_recipe 'zookeeper::install'
 
