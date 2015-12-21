@@ -19,10 +19,7 @@ class Chef::Resource
   include Exhibitor::Util
 end
 
-package_name = node['exhibitor']['patch_package'] || 'patch'
-package package_name do
-  action :install
-end
+package node['exhibitor']['patch_package']
 
 include_recipe 'zookeeper::install'
 
