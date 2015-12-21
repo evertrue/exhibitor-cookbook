@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.7.1
+* Move installation of `node['exhibitor']['patch_package']` to execution phase (#26)
+* Drop testing in Chef 11 due to conflict w/ net-ssh gem installed by Serverspec
+
 ## 0.7.0
 * Add Serverspec tests (#5)
 * Bump `zookeeper` to ~> 3.0 (#23)
