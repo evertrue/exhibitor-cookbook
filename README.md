@@ -19,6 +19,8 @@ Exhibitor going, as well as calling `exhibitor::service` if you want the
 service to boot up in the same run. These recipes are split for workflows
 within, for example, AMI pipelines.
 
+Ubuntu users should set `node['apt']['compile_time_update'] = true` in your role/wrapper cookbook, since some packages are installed very early in the chef run, before apt would normally have time to update. 
+
 More documentation to come. Please see the [Exhibitor
 docs](https://github.com/Netflix/exhibitor/wiki) for more
 information on the specifics of running Exhibitor.
