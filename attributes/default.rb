@@ -2,6 +2,7 @@
 
 # Set Zookeeper to use Exhibitor as its service manager
 default['zookeeper']['service_style'] = 'exhibitor'
+default['exhibitor']['service_style'] = 'runit'
 default['exhibitor']['service_actions'] = [:enable, :start]
 
 # Gradle specifics for installation

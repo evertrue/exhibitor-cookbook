@@ -16,3 +16,12 @@ suites:
       - recipe[exhibitor::default]
       - recipe[exhibitor::service]
     attributes:
+  - name: upstart
+    run_list:
+      - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
+    attributes:
+      exhibitor:
+        service_style: upstart
+    excludes:
+      - centos-6.6
