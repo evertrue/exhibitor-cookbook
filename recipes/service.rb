@@ -18,8 +18,6 @@ class Chef::Resource
   include Exhibitor::Util
 end
 
-include_recipe 'runit::default'
-
 case node['exhibitor']['service_style']
 when 'upstart'
   template '/etc/init/exhibitor.conf' do
@@ -44,6 +42,8 @@ when 'upstart'
     action node['exhibitor']['service_actions']
   end
 when 'runit'
+  include_recipe 'runit::default'
+
   runit_service 'exhibitor' do
     default_logger true
     options(
