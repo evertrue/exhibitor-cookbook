@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.8.0
+* Add Upstart as an alternative to runit (#29 @davidgiesberg)
+
 ## 0.7.1
 * Move installation of `node['exhibitor']['patch_package']` to execution phase (#26)
 * Drop testing in Chef 11 due to conflict w/ net-ssh gem installed by Serverspec
