@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.8.1
+* Bumped zookeeper dependency version to work with latest release
+
 ## 0.8.0
 * Add Upstart as an alternative to runit (#29 @davidgiesberg)
 
