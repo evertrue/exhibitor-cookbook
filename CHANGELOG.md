@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.9.0
+* Bump `zookeeper` to ~> 4.0 (#30 @f1yers)
+
 ## 0.8.0
 * Add Upstart as an alternative to runit (#29 @davidgiesberg)
 
