@@ -21,6 +21,8 @@ default['exhibitor']['transaction_dir'] = '/tmp/zookeeper'
 default['exhibitor']['log_index_dir']   = '/tmp/zookeeper_log_indexes'
 default['exhibitor']['log_to_syslog']   = '1'
 
+default['exhibitor']['gradle_build_cmd'] = 'gradle shadowJar'
+
 default['exhibitor']['patch_package'] = 'patch'
 
 # Command line arguments

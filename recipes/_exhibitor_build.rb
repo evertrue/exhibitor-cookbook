@@ -37,7 +37,7 @@ if should_install_exhibitor?(node['exhibitor']['jar_dest'])
   execute 'build exhibitor' do
     user 'root'
     cwd build_path
-    command 'gradle shadowJar'
+    command node['exhibitor']['gradle_build_cmd']
   end
 
   gradle_artifact = ::File.join(build_path,
