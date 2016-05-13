@@ -23,7 +23,8 @@ service_conf = {
   jar: ::File.join(node['exhibitor']['install_dir'],
                    "#{node['exhibitor']['version']}.jar"),
   log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
-  cli: format_cli_options(node['exhibitor']['cli'])
+  cli: format_cli_options(node['exhibitor']['cli']),
+  java_home: node['java']['java_home']
 }
 
 case node['exhibitor']['service_style']

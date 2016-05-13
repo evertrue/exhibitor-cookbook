@@ -1,5 +1,5 @@
 #!/bin/sh
 exec 2>&1
 exec chpst -u <%= @options[:user] %> \
-  java -Dlog4j.configuration=file://<%= @options[:log4j] %> \
+  <%= @options[:java_home] %>/bin/java -Dlog4j.configuration=file://<%= @options[:log4j] %> \
   -jar <%= @options[:jar] %> <%= @options[:cli] %>
