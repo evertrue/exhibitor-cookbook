@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.10.0
+* Add attribute to use a custom command to run `gradle` (#32, @vanliew)
+* Upgrade to `zookeeper ~> 5.0`
+    - Brings in potentially breaking change of using `java` cookbook’s `$JAVA_HOME` env var for the version of Java used to run ZooKeeper
+* Use `java` cookbook’s `$JAVA_HOME` env var for the version of Java used to run Exhibitor
+
 ## 0.9.0
 * Bump `zookeeper` to ~> 4.0 (#30 @f1yers)
 
