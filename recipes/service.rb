@@ -18,19 +18,21 @@ class Chef::Resource
   include Exhibitor::Util
 end
 
+service_conf = {
+  user: node['exhibitor']['user'],
+  jar: ::File.join(node['exhibitor']['install_dir'],
+                   "#{node['exhibitor']['version']}.jar"),
+  log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
+  cli: format_cli_options(node['exhibitor']['cli'])
+}
+
 case node['exhibitor']['service_style']
 when 'upstart'
   template '/etc/init/exhibitor.conf' do
     source 'exhibitor.upstart.erb'
     owner 'root'
     group 'root'
-    variables(
-      user: node['exhibitor']['user'],
-      jar: ::File.join(node['exhibitor']['install_dir'],
-                       "#{node['exhibitor']['version']}.jar"),
-      log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
-      cli: format_cli_options(node['exhibitor']['cli'])
-    )
+    variables service_conf
     action :create
     mode '0644'
     notifies :restart, 'service[exhibitor]', :delayed
@@ -46,13 +48,7 @@ when 'runit'
 
   runit_service 'exhibitor' do
     default_logger true
-    options(
-      user: node['exhibitor']['user'],
-      jar: ::File.join(node['exhibitor']['install_dir'],
-           "#{node['exhibitor']['version']}.jar"),
-      log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
-      cli: format_cli_options(node['exhibitor']['cli'])
-    )
+    options service_conf
     action node['exhibitor']['service_actions']
   end
 else
