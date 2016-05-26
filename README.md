@@ -1,9 +1,11 @@
 # Exhibitor
+
 Chef cookbook for installing and managing Netflix's
 [Exhibitor](https://github.com/Netflix/exhibitor), a co-process for Apache
 Zookeeper.
 
 ## Usage
+
 In particular, two key attribute hashes drive this cookbook.
 
 The first is `node['exhibitor']['cli']`, which specifies command-line options
