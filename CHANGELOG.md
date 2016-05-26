@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 1.0.0
+
+* This version reflects that this cookbook is used in production, and will respect semver moving forward
+    - No functional or breaking changes occurred to the cookbook’s code
+* Clean up of docs
+* Update ownership
+
 ## 0.10.0
 
 * Add attribute to use a custom command to run `gradle` (#32, @vanliew)
