@@ -1,6 +1,6 @@
 name             'exhibitor'
-maintainer       'Simple Finance Technology Corp.'
-maintainer_email 'ops@simple.com'
+maintainer       'EverTrue'
+maintainer_email 'devops@evertrue.com'
 license          'Apache v2.0'
 description      'Installs Netflix Exhibitor'
 version          '0.10.0'

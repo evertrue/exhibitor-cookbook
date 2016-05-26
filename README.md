@@ -24,6 +24,8 @@ docs](https://github.com/Netflix/exhibitor/wiki) for more
 information on the specifics of running Exhibitor.
 
 ## Author and License 
+
+EverTrue <devops@evertrue.com>  
 Simple Finance <ops@simple.com>
 
 Apache License, Version 2.0
