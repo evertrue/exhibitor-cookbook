@@ -1,0 +1,44 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  security_group_ids:
+    - ci-testing
+  instance_type: c3.large
+  interface: public
+  tags:
+    Env: public
+    Type: test
+    created-by: test-kitchen
+    Operator: <%= ENV['USER'] %>
+
+transport:
+  name: sftp
+  ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      Name: exhibitor-ubuntu-1204
+  - name: ubuntu-14.04
+    driver:
+      Name: exhibitor-ubuntu-1404
+  - name: centos-6
+    driver:
+      Name: exhibitor-centos-6
+
+suites:
+  - name: default
+    run_list:
+      - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
+
+  - name: upstart
+    run_list:
+      - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
+    attributes:
+      exhibitor:
+        service_style: upstart
+    excludes:
+      - centos-6

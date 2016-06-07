@@ -88,7 +88,7 @@ node.default['exhibitor']['config'].merge!(
   'log_index_directory' => node['exhibitor']['log_index_dir'],
   'zookeeper_log_directory' => node['zookeeper']['config']['dataLogDir'] || node['exhibitor']['transaction_dir'],
   'zookeeper_data_directory' => node['zookeeper']['config']['dataDir'] || node['exhibitor']['snapshot_dir'],
-  'zookeeper_install_directory' => "#{node['zookeeper']['install_dir']}/*",
+  'zookeeper_install_directory' => "#{node['zookeeper']['install_dir']}/*"
 )
 
 file node['exhibitor']['cli']['defaultconfig'] do
