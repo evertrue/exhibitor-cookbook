@@ -1,5 +1,7 @@
 # Exhibitor
 
+[![Build Status](https://travis-ci.org/evertrue/exhibitor-cookbook.svg?branch=master)](https://travis-ci.org/evertrue/exhibitor-cookbook)
+
 Chef cookbook for installing and managing Netflix's
 [Exhibitor](https://github.com/Netflix/exhibitor), a co-process for Apache
 Zookeeper.
