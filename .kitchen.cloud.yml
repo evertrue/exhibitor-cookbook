@@ -42,3 +42,12 @@ suites:
         service_style: upstart
     excludes:
       - centos-6
+
+  - name: runit
+    run_list:
+      - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
+    attributes:
+      exhibitor:
+        service_style: runit
+        install_method: download
