@@ -12,6 +12,7 @@ default['gradle']['checksum'] = 'c4eaecc621a81f567ded1aede4a5ddb281cc02a03a6a87c
 default['exhibitor']['version']        = '1.5.5'
 default['exhibitor']['user']           = 'zookeeper'
 default['exhibitor']['install_method'] = 'build'
+default['exhibitor']['mirror']         = "http://central.maven.org/maven2/com/netflix/exhibitor/exhibitor-standalone/#{node['exhibitor']['version']}/exhibitor-standalone-#{node['exhibitor']['version']}.jar"
 default['exhibitor']['loglevel']       = 'info'
 
 default['exhibitor']['install_dir']     = '/opt/exhibitor'
