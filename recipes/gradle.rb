@@ -1,4 +1,6 @@
-# recipes/gradle.rb
+#
+# Cookbook Name:: exhibitor
+# Recipe:: gradle
 #
 # Copyright 2014, Simple Finance Technology Corp.
 # Copyright 2016, EverTrue, Inc.

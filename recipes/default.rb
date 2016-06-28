@@ -1,4 +1,6 @@
-# recipes/default.rb
+#
+# Cookbook Name:: exhibitor
+# Recipe:: default
 #
 # Copyright 2014, Simple Finance Technology Corp.
 # Copyright 2014, Continuuity Inc.
