@@ -18,10 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class Chef::Resource
-  include Exhibitor::Util
-end
-
 package node['exhibitor']['patch_package']
 
 include_recipe 'zookeeper::install'
@@ -58,7 +54,11 @@ when 's3'
     file s3_properties do
       owner node['exhibitor']['user']
       mode 00400
-      content render_s3_credentials(node['exhibitor']['s3'])
+      content(
+        node['exhibitor']['s3'].each do |k, v|
+          "com.netflix.exhibitor.s3.#{k}=#{v}"
+        end.join("\n")
+      )
     end
   else
     Chef::Log.warn 'No S3 credentials given. Assuming instance has permissions to S3.'
