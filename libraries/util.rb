@@ -7,10 +7,6 @@ module Exhibitor
                             "gradle-#{node[:gradle][:version]}"))
     end
 
-    def should_install_exhibitor?(jar_dest)
-      !File.exist? jar_dest
-    end
-
     def render_properties_file(config = {})
       config.sort_by { |k, _v| k }.collect do |k, v|
         "#{k.tr('_', '-')}=#{v}"

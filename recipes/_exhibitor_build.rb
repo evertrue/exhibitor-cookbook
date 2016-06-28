@@ -14,11 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class Chef::Recipe
-  include Exhibitor::Util
-end
-
-if should_install_exhibitor?(node['exhibitor']['jar_dest'])
+unless File.exist? node['exhibitor']['jar_dest']
   # We need Gradle to build the artifact.
   include_recipe 'exhibitor::gradle'
 
