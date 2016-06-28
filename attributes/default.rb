@@ -16,7 +16,6 @@ default['exhibitor']['mirror']         = "http://central.maven.org/maven2/com/ne
 default['exhibitor']['loglevel']       = 'info'
 
 default['exhibitor']['install_dir']     = '/opt/exhibitor'
-default['exhibitor']['script_dir']      = '/usr/local/bin/'
 default['exhibitor']['snapshot_dir']    = '/tmp/zookeeper'
 default['exhibitor']['transaction_dir'] = '/tmp/zookeeper'
 default['exhibitor']['log_index_dir']   = '/tmp/zookeeper_log_indexes'
