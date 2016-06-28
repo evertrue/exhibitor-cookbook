@@ -8,7 +8,7 @@ version          '1.0.0'
 issues_url 'https://github.com/evertrue/exhibitor-cookbook/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/evertrue/exhibitor-cookbook/' if respond_to?(:source_url)
 
-depends          'build-essential', '~> 2.2'
+depends          'build-essential'
 depends          'java', '~> 1.35'
 depends          'runit', '~> 1.7'
 depends          'zookeeper', '~> 5.0'
