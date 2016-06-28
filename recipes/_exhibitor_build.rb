@@ -18,7 +18,7 @@ unless File.exist? node['exhibitor']['jar_dest']
   # We need Gradle to build the artifact.
   include_recipe 'exhibitor::gradle'
 
-  build_path = ::File.join(Chef::Config[:file_cache_path], 'exhibitor')
+  build_path = file_cache_path 'exhibitor'
 
   directory build_path do
     owner node['exhibitor']['user']
