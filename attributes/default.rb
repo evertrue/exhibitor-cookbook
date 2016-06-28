@@ -1,5 +1,7 @@
 # attributes/default.rb
 
+default['java']['jdk_version'] = '7'
+
 # Set Zookeeper to use Exhibitor as its service manager
 default['zookeeper']['service_style'] = 'exhibitor'
 default['exhibitor']['service_style'] = 'runit'

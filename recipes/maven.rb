@@ -17,6 +17,29 @@
 # limitations under the License.
 #
 
-log 'The maven-based Exhibitor assembly is not yet implemented' do
-  level :warn
+include_recipe 'maven'
+
+build_path = file_cache_path 'exhibitor'
+
+directory build_path
+
+template "#{build_path}/pom.xml" do
+  variables version: node['exhibitor']['version']
+end
+
+execute 'build exhibitor' do
+  cwd     build_path
+  command 'mvn clean package'
+  not_if  { File.exist? node['exhibitor']['jar_dest'] }
+end
+
+mvn_artifact = "#{build_path}/target/exhibitor-#{node['exhibitor']['version']}.jar"
+
+execute "cp #{mvn_artifact} #{node['exhibitor']['jar_dest']}" do
+  not_if { File.exist? node['exhibitor']['jar_dest'] }
+end
+
+file node['exhibitor']['jar_dest'] do
+  user    node['exhibitor']['user']
+  only_if { File.exist? node['exhibitor']['jar_dest'] }
 end
