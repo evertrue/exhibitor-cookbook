@@ -43,11 +43,10 @@ suites:
     excludes:
       - centos-6
 
-  - name: runit
+  - name: download
     run_list:
       - recipe[exhibitor::default]
       - recipe[exhibitor::service]
     attributes:
       exhibitor:
-        service_style: runit
         install_method: download
