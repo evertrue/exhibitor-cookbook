@@ -17,15 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class Chef::Recipe
-  include Exhibitor::Util
-end
-
 service_conf = {
   user:      node['exhibitor']['user'],
   jar:       "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar",
   log4j:     "#{node['exhibitor']['install_dir']}/log4j.properties",
-  cli:       format_cli_options(node['exhibitor']['cli']),
+  cli:       shell_opts(node['exhibitor']['cli']),
   java_home: node['java']['java_home']
 }
 

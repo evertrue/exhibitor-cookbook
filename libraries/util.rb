@@ -7,11 +7,5 @@ module Exhibitor
         "com.netflix.exhibitor.s3.#{name.tr('_', '-')}=#{val}"
       end.join "\n"
     end
-
-    def format_cli_options(opts)
-      opts.sort_by { |k, _v| k }.collect do |opt, val|
-        "--#{opt} #{val}"
-      end.join ' '
-    end
   end
 end
