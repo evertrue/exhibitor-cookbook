@@ -2,6 +2,7 @@
 #
 # Copyright 2014, Simple Finance Technology Corp.
 # Copyright 2014, Continuuity Inc.
+# Copyright 2016, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,15 +40,11 @@ end
 node.override['exhibitor']['jar_dest'] = ::File.join(node['exhibitor']['install_dir'],
                                                      "#{node['exhibitor']['version']}.jar")
 
-if node['exhibitor']['install_method'] == 'download'
-  remote_file node['exhibitor']['jar_dest'] do
-    owner node['exhibitor']['user']
-    mode 00600
-    source node['exhibitor']['mirror']
-    checksum node['exhibitor']['checksum']
-  end
-else
-  include_recipe 'exhibitor::_exhibitor_build'
+case node['exhibitor']['install_method']
+when 'gradle'
+  include_recipe 'exhibitor::gradle'
+when 'maven'
+  include_recipe 'exhibitor::maven'
 end
 
 case node['exhibitor']['cli']['configtype']

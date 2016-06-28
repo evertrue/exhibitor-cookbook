@@ -1,6 +1,7 @@
 # recipes/gradle.rb
 #
 # Copyright 2014, Simple Finance Technology Corp.
+# Copyright 2016, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,33 +15,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class Chef::Recipe
-  include Exhibitor::Util
+include_recipe 'et_gradle'
+
+build_path = file_cache_path 'exhibitor'
+
+directory build_path
+
+template "#{build_path}/build.gradle" do
+  variables version: node['exhibitor']['version']
 end
 
-if should_install_gradle?
-  package 'unzip' do
-    action :install
-  end
+execute 'build exhibitor' do
+  cwd     build_path
+  command 'gradle shadowJar'
+  not_if  { File.exist? node['exhibitor']['jar_dest'] }
+end
 
-  node.default['gradle']['mirror'] = "http://services.gradle.org/distributions/gradle-#{node['gradle']['version']}-bin.zip"
-  remote_file file_cache_path('gradle.zip') do
-    owner 'root'
-    mode 00644
-    source node['gradle']['mirror']
-    checksum node['gradle']['checksum']
-  end
+gradle_artifact = "#{build_path}/build/libs/exhibitor-#{node['exhibitor']['version']}-all.jar"
 
-  execute 'unzip gradle' do
-    cwd     file_cache_path
-    command 'unzip ./gradle.zip'
-  end
+execute "cp #{gradle_artifact} #{node['exhibitor']['jar_dest']}" do
+  not_if { File.exist? node['exhibitor']['jar_dest'] }
+end
 
-  gradle_binary = ::File.join(Chef::Config[:file_cache_path],
-                              "gradle-#{node['gradle']['version']}",
-                              'bin', 'gradle')
-
-  link '/usr/local/bin/gradle' do
-    to gradle_binary
-  end
+file node['exhibitor']['jar_dest'] do
+  user    node['exhibitor']['user']
+  only_if { File.exist? node['exhibitor']['jar_dest'] }
 end

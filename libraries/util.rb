@@ -2,11 +2,6 @@
 
 module Exhibitor
   module Util
-    def should_install_gradle?
-      !Dir.exist?(File.join(Chef::Config[:file_cache_path],
-                            "gradle-#{node[:gradle][:version]}"))
-    end
-
     def render_properties_file(config = {})
       config.sort_by { |k, _v| k }.collect do |k, v|
         "#{k.tr('_', '-')}=#{v}"

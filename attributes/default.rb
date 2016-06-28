@@ -6,13 +6,11 @@ default['exhibitor']['service_style'] = 'runit'
 default['exhibitor']['service_actions'] = [:enable, :start]
 
 # Gradle specifics for installation
-default['gradle']['version'] = '2.4'
-default['gradle']['checksum'] = 'c4eaecc621a81f567ded1aede4a5ddb281cc02a03a6a87c4f5502add8fc2f16f'
+default['et_gradle']['version'] = '2.4'
 
 default['exhibitor']['version']        = '1.5.5'
 default['exhibitor']['user']           = 'zookeeper'
-default['exhibitor']['install_method'] = 'build'
-default['exhibitor']['mirror']         = "http://central.maven.org/maven2/com/netflix/exhibitor/exhibitor-standalone/#{node['exhibitor']['version']}/exhibitor-standalone-#{node['exhibitor']['version']}.jar"
+default['exhibitor']['install_method'] = 'gradle' # maven or gradle
 default['exhibitor']['loglevel']       = 'info'
 
 default['exhibitor']['install_dir']     = '/opt/exhibitor'
@@ -20,8 +18,6 @@ default['exhibitor']['snapshot_dir']    = '/tmp/zookeeper'
 default['exhibitor']['transaction_dir'] = '/tmp/zookeeper'
 default['exhibitor']['log_index_dir']   = '/tmp/zookeeper_log_indexes'
 default['exhibitor']['log_to_syslog']   = '1'
-
-default['exhibitor']['gradle_build_cmd'] = 'gradle shadowJar'
 
 default['exhibitor']['patch_package'] = 'patch'
 
