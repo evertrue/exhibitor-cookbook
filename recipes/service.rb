@@ -22,38 +22,36 @@ class Chef::Recipe
 end
 
 service_conf = {
-  user: node['exhibitor']['user'],
-  jar: ::File.join(node['exhibitor']['install_dir'],
-                   "#{node['exhibitor']['version']}.jar"),
-  log4j: ::File.join(node['exhibitor']['install_dir'], 'log4j.properties'),
-  cli: format_cli_options(node['exhibitor']['cli']),
+  user:      node['exhibitor']['user'],
+  jar:       "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar",
+  log4j:     "#{node['exhibitor']['install_dir']}/log4j.properties",
+  cli:       format_cli_options(node['exhibitor']['cli']),
   java_home: node['java']['java_home']
 }
 
 case node['exhibitor']['service_style']
 when 'upstart'
   template '/etc/init/exhibitor.conf' do
-    source 'exhibitor.upstart.erb'
-    owner 'root'
-    group 'root'
+    source    'exhibitor.upstart.erb'
+    owner     'root'
+    group     'root'
     variables service_conf
-    action :create
-    mode '0644'
-    notifies :restart, 'service[exhibitor]', :delayed
+    mode      '0644'
+    notifies  :restart, 'service[exhibitor]', :delayed
   end
 
   service 'exhibitor' do
     provider Chef::Provider::Service::Upstart
     supports status: true, restart: true, reload: true
-    action node['exhibitor']['service_actions']
+    action   node['exhibitor']['service_actions']
   end
 when 'runit'
   include_recipe 'runit::default'
 
   runit_service 'exhibitor' do
     default_logger true
-    options service_conf
-    action node['exhibitor']['service_actions']
+    options        service_conf
+    action         node['exhibitor']['service_actions']
   end
 else
   Chef::Log.error('You specified an invalid service style for Exhibitor, but I am continuing.')
