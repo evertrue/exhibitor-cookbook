@@ -38,18 +38,18 @@ default['exhibitor']['cli'] = {
 
 # What gets rendered to node[:exhibitor][:cli][:defaultconfig]
 default['exhibitor']['config'] = {
-  'cleanup_period_ms'                        => 5 * 60 * 1000,
-  'check_ms'                                 => '30000',
-  'backup_period_ms'                         => '0',
-  'client_port'                              => '2181',
-  'cleanup_max_files'                        => '20',
-  'backup_max_store_ms'                      => '0',
-  'connect_port'                             => '2888',
-  'backup_extra'                             => '',
-  'observer_threshold'                       => '0',
-  'election_port'                            => '3888',
-  'zoo_cfg_extra'                            => 'tickTime\=2000&initLimit\=10&syncLimit\=5',
-  'auto_manage_instances_settling_period_ms' => '0',
-  'auto_manage_instances'                    => '1',
-  'servers_spec'                             => "1:#{node['ipaddress']}"
+  'cleanup-period-ms'                        => 5 * 60 * 1000,
+  'check-ms'                                 => '30000',
+  'backup-period-ms'                         => '0',
+  'client-port'                              => '2181',
+  'cleanup-max-files'                        => '20',
+  'backup-max-store-ms'                      => '0',
+  'connect-port'                             => '2888',
+  'backup-extra'                             => '',
+  'observer-threshold'                       => '0',
+  'election-port'                            => '3888',
+  'zoo-cfg-extra'                            => 'tickTime\=2000&initLimit\=10&syncLimit\=5',
+  'auto-manage-instances-settling-period-ms' => '0',
+  'auto-manage-instances'                    => '1',
+  'servers-spec'                             => "1:#{node['ipaddress']}"
 }

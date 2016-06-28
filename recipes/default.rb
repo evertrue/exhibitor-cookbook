@@ -91,5 +91,5 @@ node.default['exhibitor']['config'].merge!(
 file node['exhibitor']['cli']['defaultconfig'] do
   owner node['exhibitor']['user']
   mode 00600
-  content render_properties_file(node['exhibitor']['config'])
+  content properties_config(node['exhibitor']['config'])
 end
