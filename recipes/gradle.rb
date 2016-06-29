@@ -19,6 +19,7 @@
 
 include_recipe 'et_gradle'
 
+jar_path = "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar"
 build_path = file_cache_path 'exhibitor'
 
 directory build_path
@@ -30,16 +31,16 @@ end
 execute 'build exhibitor' do
   cwd     build_path
   command 'gradle shadowJar'
-  not_if  { File.exist? node['exhibitor']['jar_dest'] }
+  not_if  { File.exist? jar_path }
 end
 
 gradle_artifact = "#{build_path}/build/libs/exhibitor-#{node['exhibitor']['version']}-all.jar"
 
-execute "cp #{gradle_artifact} #{node['exhibitor']['jar_dest']}" do
-  not_if { File.exist? node['exhibitor']['jar_dest'] }
+execute "cp #{gradle_artifact} #{jar_path}" do
+  not_if { File.exist? jar_path }
 end
 
-file node['exhibitor']['jar_dest'] do
+file jar_path do
   user    node['exhibitor']['user']
-  only_if { File.exist? node['exhibitor']['jar_dest'] }
+  only_if { File.exist? jar_path }
 end

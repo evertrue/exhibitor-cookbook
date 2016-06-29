@@ -35,9 +35,6 @@ include_recipe 'zookeeper::install'
   end
 end
 
-node.override['exhibitor']['jar_dest'] = ::File.join(node['exhibitor']['install_dir'],
-                                                     "#{node['exhibitor']['version']}.jar")
-
 case node['exhibitor']['install_method']
 when 'gradle'
   include_recipe 'exhibitor::gradle'
