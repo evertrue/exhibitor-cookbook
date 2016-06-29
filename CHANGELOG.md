@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 2.0.0
+
+* Refactor to provide two mechanisms to assemble Exhibitor, as per [Netflix’s Exhibitor docs](https://github.com/Netflix/exhibitor/wiki/Building-Exhibitor)
+    - This does mean that installing a prebuilt copy of Exhibitor isn’t an option with this version of the cookbook
+    - Owing to Maven 3, and just b/c it’s good to keep up-to-date, this cookbook now defaults to Java 7
+    - Build/assembly options:
+        - Maven (new!)
+        - Gradle
+* Drop unnecessarily abstracted `Exhibitor::Util` class in favor of more declarative code
+* Make use of the `magic` cookbook to avoid reinventing the wheel
+* Drop pin for `build-essential` to avoid cross-dependency pain
+
 ## 1.0.0
 
 * This version reflects that this cookbook is used in production, and will respect semver moving forward
