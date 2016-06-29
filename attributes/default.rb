@@ -1,28 +1,25 @@
 # attributes/default.rb
 
+default['java']['jdk_version'] = '7'
+
 # Set Zookeeper to use Exhibitor as its service manager
 default['zookeeper']['service_style'] = 'exhibitor'
 default['exhibitor']['service_style'] = 'runit'
 default['exhibitor']['service_actions'] = [:enable, :start]
 
 # Gradle specifics for installation
-default['gradle']['version'] = '2.4'
-default['gradle']['checksum'] = 'c4eaecc621a81f567ded1aede4a5ddb281cc02a03a6a87c4f5502add8fc2f16f'
+default['et_gradle']['version'] = '2.4'
 
 default['exhibitor']['version']        = '1.5.5'
 default['exhibitor']['user']           = 'zookeeper'
-default['exhibitor']['install_method'] = 'build'
-default['exhibitor']['mirror']         = "http://central.maven.org/maven2/com/netflix/exhibitor/exhibitor-standalone/#{node['exhibitor']['version']}/exhibitor-standalone-#{node['exhibitor']['version']}.jar"
+default['exhibitor']['install_method'] = 'gradle' # maven or gradle
 default['exhibitor']['loglevel']       = 'info'
 
 default['exhibitor']['install_dir']     = '/opt/exhibitor'
-default['exhibitor']['script_dir']      = '/usr/local/bin/'
 default['exhibitor']['snapshot_dir']    = '/tmp/zookeeper'
 default['exhibitor']['transaction_dir'] = '/tmp/zookeeper'
 default['exhibitor']['log_index_dir']   = '/tmp/zookeeper_log_indexes'
 default['exhibitor']['log_to_syslog']   = '1'
-
-default['exhibitor']['gradle_build_cmd'] = 'gradle shadowJar'
 
 default['exhibitor']['patch_package'] = 'patch'
 
@@ -43,18 +40,18 @@ default['exhibitor']['cli'] = {
 
 # What gets rendered to node[:exhibitor][:cli][:defaultconfig]
 default['exhibitor']['config'] = {
-  'cleanup_period_ms'                        => 5 * 60 * 1000,
-  'check_ms'                                 => '30000',
-  'backup_period_ms'                         => '0',
-  'client_port'                              => '2181',
-  'cleanup_max_files'                        => '20',
-  'backup_max_store_ms'                      => '0',
-  'connect_port'                             => '2888',
-  'backup_extra'                             => '',
-  'observer_threshold'                       => '0',
-  'election_port'                            => '3888',
-  'zoo_cfg_extra'                            => 'tickTime\=2000&initLimit\=10&syncLimit\=5',
-  'auto_manage_instances_settling_period_ms' => '0',
-  'auto_manage_instances'                    => '1',
-  'servers_spec'                             => "1:#{node['ipaddress']}"
+  'cleanup-period-ms'                        => 5 * 60 * 1000,
+  'check-ms'                                 => '30000',
+  'backup-period-ms'                         => '0',
+  'client-port'                              => '2181',
+  'cleanup-max-files'                        => '20',
+  'backup-max-store-ms'                      => '0',
+  'connect-port'                             => '2888',
+  'backup-extra'                             => '',
+  'observer-threshold'                       => '0',
+  'election-port'                            => '3888',
+  'zoo-cfg-extra'                            => 'tickTime\=2000&initLimit\=10&syncLimit\=5',
+  'auto-manage-instances-settling-period-ms' => '0',
+  'auto-manage-instances'                    => '1',
+  'servers-spec'                             => "1:#{node['ipaddress']}"
 }

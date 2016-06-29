@@ -33,9 +33,9 @@ env:
   - KITCHEN_SUITE=default-centos-6
   - KITCHEN_SUITE=upstart-ubuntu-1204
   - KITCHEN_SUITE=upstart-ubuntu-1404
-  - KITCHEN_SUITE=download-ubuntu-1204
-  - KITCHEN_SUITE=download-ubuntu-1404
-  - KITCHEN_SUITE=download-centos-6
+  - KITCHEN_SUITE=maven-ubuntu-1204
+  - KITCHEN_SUITE=maven-ubuntu-1404
+  - KITCHEN_SUITE=maven-centos-6
   global:
   - KITCHEN_YAML=.kitchen.cloud.yml
   - secure: D+FwRzJvPsSmJkyYJDj70kv8F9D53uglqkZZQSeQLy4C5VxnSSHaeJ5e9PklmRYD9bqkh1YgBTMMCr5jlGtbkwDAeZ9sdeYiAp+V4Qq/mGYS32Sx5w6OVD4m04EfdraJ1XphBquLtvYTtwCT5128yrl5MLkk9wUbodiU/rwbZQw=

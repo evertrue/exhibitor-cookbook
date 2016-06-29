@@ -1,9 +1,8 @@
 #
 # Cookbook Name:: exhibitor
-# Recipe:: gradle
+# Recipe:: maven
 #
-# Copyright 2014, Simple Finance Technology Corp.
-# Copyright 2016, EverTrue, Inc.
+# Copyright (c) 2016 EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,27 +15,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-include_recipe 'et_gradle'
+include_recipe 'maven'
 
 jar_path = "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar"
 build_path = file_cache_path 'exhibitor'
 
 directory build_path
 
-template "#{build_path}/build.gradle" do
+template "#{build_path}/pom.xml" do
   variables version: node['exhibitor']['version']
 end
 
 execute 'build exhibitor' do
   cwd     build_path
-  command 'gradle shadowJar'
+  command 'mvn clean package'
   not_if  { File.exist? jar_path }
 end
 
-gradle_artifact = "#{build_path}/build/libs/exhibitor-#{node['exhibitor']['version']}-all.jar"
+mvn_artifact = "#{build_path}/target/exhibitor-#{node['exhibitor']['version']}.jar"
 
-execute "cp #{gradle_artifact} #{jar_path}" do
+execute "cp #{mvn_artifact} #{jar_path}" do
   not_if { File.exist? jar_path }
 end
 

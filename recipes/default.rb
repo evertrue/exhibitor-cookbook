@@ -1,7 +1,10 @@
-# recipes/default.rb
+#
+# Cookbook Name:: exhibitor
+# Recipe:: default
 #
 # Copyright 2014, Simple Finance Technology Corp.
 # Copyright 2014, Continuuity Inc.
+# Copyright 2016, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +17,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-class Chef::Resource
-  include Exhibitor::Util
-end
 
 package node['exhibitor']['patch_package']
 
@@ -36,18 +35,11 @@ include_recipe 'zookeeper::install'
   end
 end
 
-node.override['exhibitor']['jar_dest'] = ::File.join(node['exhibitor']['install_dir'],
-                                                     "#{node['exhibitor']['version']}.jar")
-
-if node['exhibitor']['install_method'] == 'download'
-  remote_file node['exhibitor']['jar_dest'] do
-    owner node['exhibitor']['user']
-    mode 00600
-    source node['exhibitor']['mirror']
-    checksum node['exhibitor']['checksum']
-  end
-else
-  include_recipe 'exhibitor::_exhibitor_build'
+case node['exhibitor']['install_method']
+when 'gradle'
+  include_recipe 'exhibitor::gradle'
+when 'maven'
+  include_recipe 'exhibitor::maven'
 end
 
 case node['exhibitor']['cli']['configtype']
@@ -59,7 +51,11 @@ when 's3'
     file s3_properties do
       owner node['exhibitor']['user']
       mode 00400
-      content render_s3_credentials(node['exhibitor']['s3'])
+      content(
+        node['exhibitor']['s3'].each do |k, v|
+          "com.netflix.exhibitor.s3.#{k}=#{v}"
+        end.join("\n")
+      )
     end
   else
     Chef::Log.warn 'No S3 credentials given. Assuming instance has permissions to S3.'
@@ -94,5 +90,5 @@ node.default['exhibitor']['config'].merge!(
 file node['exhibitor']['cli']['defaultconfig'] do
   owner node['exhibitor']['user']
   mode 00600
-  content render_properties_file(node['exhibitor']['config'])
+  content properties_config(node['exhibitor']['config'])
 end

@@ -1,5 +1,6 @@
 #
-# Cookbook Name:: exhibitor_discovery
+# Cookbook Name:: exhibitor
+# Library:: exhibitor_discovery
 #
 # Copyright 2013, Simple Finance Technology Corp.
 #

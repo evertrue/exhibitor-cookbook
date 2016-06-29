@@ -26,10 +26,10 @@ suites:
     excludes:
       - centos-6.6
 
-  - name: download
+  - name: maven
     run_list:
       - recipe[exhibitor::default]
       - recipe[exhibitor::service]
     attributes:
       exhibitor:
-        install_method: download
+        install_method: maven
