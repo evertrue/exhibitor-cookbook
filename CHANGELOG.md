@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.0.1
+
+* Fix missed `node[exhibitor][config]` keys in `exhibitor::default`
+
 ## 2.0.0
 
 * Refactor to provide two mechanisms to assemble Exhibitor, as per [Netflix’s Exhibitor docs](https://github.com/Netflix/exhibitor/wiki/Building-Exhibitor)
