@@ -16,7 +16,7 @@ the defaults provided will ensure Exhibitor is able to run.
 
 The second is `node['exhibitor']['config']`, which manages the configuration
 parameters that get rendered to the `exhibitor.properties` file. The defaults
-are sane starting values.
+are sensible starting values.
 
 We recommend running `exhibitor::default` to get a basic, default setup of
 Exhibitor going, as well as calling `exhibitor::service` if you want the
