@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.0.2
+
+* Fix incorrect usage of `Hash.each` where `Hash.map` should have been used
+
 ## 2.0.1
 
 * Fix missed `node[exhibitor][config]` keys in `exhibitor::default`
