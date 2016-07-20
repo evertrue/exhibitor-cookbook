@@ -52,7 +52,7 @@ when 's3'
       owner node['exhibitor']['user']
       mode 00400
       content(
-        node['exhibitor']['s3'].each do |k, v|
+        node['exhibitor']['s3'].map do |k, v|
           "com.netflix.exhibitor.s3.#{k}=#{v}"
         end.join("\n")
       )
