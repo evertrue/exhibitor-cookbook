@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 3.0.0
+
+* Upgrade to `zookeeper ~> 6.0`
+* Fix Vagrant-based CentOS test suites
+
 ## 2.0.2
 
 * Fix incorrect usage of `Hash.each` where `Hash.map` should have been used
