@@ -10,8 +10,8 @@ source_url 'https://github.com/evertrue/exhibitor-cookbook/' if respond_to?(:sou
 
 depends          'build-essential'
 depends          'java', '~> 1.35'
-depends          'runit', '~> 1.7'
-depends          'zookeeper', '~> 6.0'
+depends          'runit', '~> 3.0'
+depends          'zookeeper', '~> 8.0'
 depends          'magic', '~> 1.5'
 depends          'et_gradle', '~> 2.0'
-depends          'maven', '~> 2.2'
+depends          'maven', '~> 4.0'
