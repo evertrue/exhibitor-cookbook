@@ -1,9 +1,12 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
 
-RSpec.configure do |config|
-  config.formatter = :documentation
-  config.color = true
-end
+# Generate a report
+ChefSpec::Coverage.start!
 
-at_exit { ChefSpec::Coverage.report! }
+RSpec.configure do |config|
+  config.color     = true
+  config.formatter = :documentation
+  config.platform  = 'ubuntu'
+  config.version   = '16.04'
+end
