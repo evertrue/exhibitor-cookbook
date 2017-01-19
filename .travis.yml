@@ -24,22 +24,23 @@ before_script:
 - chef --version
 - cookstyle --version
 - foodcritic --version
-script:
-- cookstyle
-- foodcritic .
-- chef exec rspec
-- kitchen test ${KITCHEN_SUITE} -d always
+- kitchen --version
+script: $TEST
 env:
   matrix:
-  - KITCHEN_SUITE=default-ubuntu-1204
-  - KITCHEN_SUITE=default-ubuntu-1404
-  - KITCHEN_SUITE=default-centos-6
-  - KITCHEN_SUITE=upstart-ubuntu-1204
-  - KITCHEN_SUITE=upstart-ubuntu-1404
-  - KITCHEN_SUITE=maven-ubuntu-1204
-  - KITCHEN_SUITE=maven-ubuntu-1404
-  - KITCHEN_SUITE=maven-centos-6
+  - TEST=cookstyle
+  - TEST="foodcritic ."
+  - TEST="chef exec rspec"
+  - TEST="$KITCHEN_CMD default-ubuntu-1204"
+  - TEST="$KITCHEN_CMD default-ubuntu-1404"
+  - TEST="$KITCHEN_CMD default-centos-6"
+  - TEST="$KITCHEN_CMD upstart-ubuntu-1204"
+  - TEST="$KITCHEN_CMD upstart-ubuntu-1404"
+  - TEST="$KITCHEN_CMD maven-ubuntu-1204"
+  - TEST="$KITCHEN_CMD maven-ubuntu-1404"
+  - TEST="$KITCHEN_CMD maven-centos-6"
   global:
+  - KITCHEN_CMD="kitchen test -d always"
   - KITCHEN_YAML=.kitchen.cloud.yml
   - secure: D+FwRzJvPsSmJkyYJDj70kv8F9D53uglqkZZQSeQLy4C5VxnSSHaeJ5e9PklmRYD9bqkh1YgBTMMCr5jlGtbkwDAeZ9sdeYiAp+V4Qq/mGYS32Sx5w6OVD4m04EfdraJ1XphBquLtvYTtwCT5128yrl5MLkk9wUbodiU/rwbZQw=
   - secure: JRybSRyM7fzHj22IpAVzvSE5rkP19pJnp/+GP7Njuw5RIK0cIFW55eEx4c+vBNDRxQp50JHGGQmZwEeFsPKT9OHoz8SpoEIAgKnjTGnnpg3EIdPcgdVlMY7TC7FerMVbzSey9IHhf9eip89/r9U8ADPOfTC0zVnuEfMl+8WRpXo=
