@@ -26,7 +26,7 @@ include_recipe 'zookeeper::install'
   node['exhibitor']['install_dir'],
   node['exhibitor']['snapshot_dir'],
   node['exhibitor']['transaction_dir'],
-  node['exhibitor']['log_index_dir']
+  node['exhibitor']['log_index_dir'],
 ].uniq.each do |dir|
   directory dir do
     owner node['exhibitor']['user']

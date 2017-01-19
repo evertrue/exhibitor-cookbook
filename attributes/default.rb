@@ -28,7 +28,7 @@ default['exhibitor']['cli'] = {
   'port'          => '8080',
   'hostname'      => node['ipaddress'],
   'configtype'    => 'file',
-  'defaultconfig' => File.join(node['exhibitor']['install_dir'], 'exhibitor.properties')
+  'defaultconfig' => File.join(node['exhibitor']['install_dir'], 'exhibitor.properties'),
 }
 
 # Example --config S3 values
@@ -53,5 +53,5 @@ default['exhibitor']['config'] = {
   'zoo-cfg-extra'                            => 'tickTime\=2000&initLimit\=10&syncLimit\=5',
   'auto-manage-instances-settling-period-ms' => '0',
   'auto-manage-instances'                    => '1',
-  'servers-spec'                             => "1:#{node['ipaddress']}"
+  'servers-spec'                             => "1:#{node['ipaddress']}",
 }

@@ -22,7 +22,7 @@ service_conf = {
   jar:       "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar",
   log4j:     "#{node['exhibitor']['install_dir']}/log4j.properties",
   cli:       shell_opts(node['exhibitor']['cli']),
-  java_home: node['java']['java_home']
+  java_home: node['java']['java_home'],
 }
 
 case node['exhibitor']['service_style']
