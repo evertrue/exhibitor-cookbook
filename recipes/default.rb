@@ -64,7 +64,7 @@ when 'file'
   node.default['exhibitor']['cli']['fsconfigdir'] = '/tmp'
   node.default['exhibitor']['cli']['fsconfigname'] = 'exhibitor.properties'
 
-  file ::File.join(node['exhibitor']['cli'][:fsconfigdir], node['exhibitor']['cli'][:fsconfigname]) do
+  file ::File.join(node['exhibitor']['cli']['fsconfigdir'], node['exhibitor']['cli']['fsconfigname']) do
     owner node['exhibitor']['user']
     mode 00600
   end
