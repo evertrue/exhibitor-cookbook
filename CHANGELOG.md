@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 4.0.0
+
+* Upgrade to `zookeeper ~> 8.0`
+* Upgrade other cookbook dependencies to latest as of this writing
+* Refactor to use the new custom resources from `zookeeker` 8.x
+* Ensure Java 8 is installed for the Maven-based Exhibitor recipes
+    - At the moment though, these recipes appear broken
+
 ## 3.0.0
 
 * Upgrade to `zookeeper ~> 6.0`
