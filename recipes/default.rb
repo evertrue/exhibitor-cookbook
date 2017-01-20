@@ -26,7 +26,7 @@ node.default['zookeeper']['java_opts']   = "-Xmx#{allocated_memory}"
 
 package node['exhibitor']['patch_package']
 
-zookeeper '3.4.9' do
+zookeeper node['exhibitor']['zookeeper_version'] do
   username  node['exhibitor']['user']
   user_home "/home/#{node['exhibitor']['user']}"
 end
