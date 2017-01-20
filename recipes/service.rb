@@ -25,6 +25,8 @@ service_conf = {
   java_home: node['java']['java_home'],
 }
 
+service_conf[:java_home] = '/usr' if service_conf[:java_home].nil?
+
 case node['exhibitor']['service_style']
 when 'upstart'
   template '/etc/init/exhibitor.conf' do

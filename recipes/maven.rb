@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+# Maven 3 requires Java 8
+node.default['java']['jdk_version'] = '8'
+
 include_recipe 'maven'
 
 jar_path = "#{node['exhibitor']['install_dir']}/#{node['exhibitor']['version']}.jar"
