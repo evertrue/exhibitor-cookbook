@@ -18,12 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allocated_memory = "#{(node['memory']['total'].to_i * 0.8).floor / 1024}m"
-
-node.default['zookeeper']['config_dir']  = '/opt/zookeeper/conf'
-node.default['zookeeper']['conf_file']   = 'zoo.cfg'
-node.default['zookeeper']['java_opts']   = "-Xmx#{allocated_memory}"
-
 package node['exhibitor']['patch_package']
 
 zookeeper node['exhibitor']['zookeeper_version'] do
