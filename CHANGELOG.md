@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.2
+
+* Just updating the CHANGELOG on Supermarket
+
 ## 4.0.1
 
 * Remove confusing, unused attributes
