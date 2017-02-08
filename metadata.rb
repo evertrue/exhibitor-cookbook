@@ -3,7 +3,7 @@ maintainer       'EverTrue'
 maintainer_email 'devops@evertrue.com'
 license          'Apache v2.0'
 description      'Installs Netflix Exhibitor'
-version          '4.0.0'
+version          '4.0.1'
 
 issues_url 'https://github.com/evertrue/exhibitor-cookbook/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/evertrue/exhibitor-cookbook/' if respond_to?(:source_url)
