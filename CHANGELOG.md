@@ -1,6 +1,8 @@
 # CHANGELOG
 
-## Unreleased
+## 4.0.1
+
+* Remove confusing, unused attributes
 
 ## 4.0.0
 
