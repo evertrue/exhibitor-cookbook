@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.1.0
+
+* Allow ZooKeeper to be installed to other directories using `node['zookeeper']['install_dir']` attribute
+
 ## 4.0.2
 
 * Just updating the CHANGELOG on Supermarket
