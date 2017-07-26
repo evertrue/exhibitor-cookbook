@@ -23,6 +23,7 @@ package node['exhibitor']['patch_package']
 zookeeper node['exhibitor']['zookeeper_version'] do
   username  node['exhibitor']['user']
   user_home "/home/#{node['exhibitor']['user']}"
+  install_dir node['zookeeper']['install_dir']
 end
 
 [
