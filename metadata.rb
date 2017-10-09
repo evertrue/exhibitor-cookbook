@@ -1,7 +1,7 @@
 name             'exhibitor'
 maintainer       'EverTrue'
 maintainer_email 'devops@evertrue.com'
-license          'Apache v2.0'
+license          'Apache-2.0'
 description      'Installs Netflix Exhibitor'
 version          '4.1.0'
 
