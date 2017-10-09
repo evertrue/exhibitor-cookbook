@@ -24,6 +24,7 @@ zookeeper node['exhibitor']['zookeeper_version'] do
   username  node['exhibitor']['user']
   user_home "/home/#{node['exhibitor']['user']}"
   install_dir node['zookeeper']['install_dir']
+  mirror node['zookeeper']['mirror'] if node['zookeeper']['mirror']
 end
 
 [
