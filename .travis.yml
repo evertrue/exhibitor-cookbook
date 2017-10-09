@@ -18,15 +18,11 @@ branches:
 before_install:
 - openssl aes-256-cbc -K $encrypted_fa513a61827b_key -iv $encrypted_fa513a61827b_iv
   -in travis_ci_ec2.pem.enc -out ~/.ssh/travis_ci_ec2.pem -d
+- chef --version
+- eval "$(chef shell-init bash)"
 install:
 - chef gem install kitchen-ec2 kitchen-sync
-- eval "$(chef shell-init bash)"
-before_script:
 - berks
-- chef --version
-- cookstyle --version
-- foodcritic --version
-- kitchen --version
 script: $TEST
 env:
   matrix:
