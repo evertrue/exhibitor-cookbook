@@ -1,3 +1,5 @@
+dist: trusty
+sudo: false
 language: ruby
 rvm:
 - 2.2
@@ -7,7 +9,7 @@ cache:
 addons:
   apt:
     sources:
-    - chef-stable-precise
+    - chef-stable-trusty
     packages:
     - chefdk
 branches:
