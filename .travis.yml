@@ -22,9 +22,7 @@ install:
 script: $TEST
 env:
   matrix:
-  - TEST=cookstyle
-  - TEST="foodcritic ."
-  - TEST="chef exec rspec"
+  - TEST="chef exec delivery local verify"
   - TEST="$KITCHEN_CMD default-ubuntu-1204"
   - TEST="$KITCHEN_CMD default-ubuntu-1404"
   - TEST="$KITCHEN_CMD default-ubuntu-1604"
