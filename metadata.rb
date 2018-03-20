@@ -16,7 +16,7 @@ supports 'centos', '~> 6.0'
 
 depends          'build-essential'
 depends          'java', '~> 1.35'
-depends          'runit', '~> 3.0'
+depends          'runit', '~> 4.0'
 depends          'zookeeper', '~> 8.0'
 depends          'magic', '~> 1.5'
 depends          'et_gradle', '~> 2.0'
