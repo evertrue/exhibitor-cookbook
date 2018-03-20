@@ -12,6 +12,7 @@ source_url 'https://github.com/evertrue/exhibitor-cookbook/' if respond_to?(:sou
 supports 'ubuntu', '= 14.04'
 supports 'ubuntu', '= 16.04'
 supports 'centos', '~> 6.0'
+supports 'centos', '~> 7.0'
 
 depends          'build-essential'
 depends          'java', '~> 1.35'
