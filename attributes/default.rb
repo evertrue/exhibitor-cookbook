@@ -10,7 +10,7 @@ default['exhibitor']['service_actions'] = [:enable, :start]
 # Gradle specifics for installation
 default['et_gradle']['version'] = '2.4'
 
-default['exhibitor']['zookeeper_version'] = '3.4.9'
+default['exhibitor']['zookeeper_version'] = node['zookeeper']['version']
 default['exhibitor']['version']        = '1.5.5'
 default['exhibitor']['user']           = 'zookeeper'
 default['exhibitor']['install_method'] = 'gradle' # maven or gradle
