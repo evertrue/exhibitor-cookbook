@@ -23,8 +23,8 @@ suites:
     attributes:
       exhibitor:
         service_style: upstart
-    excludes:
-      - centos-6.6
+    includes:
+      - ubuntu-14.04
 
   - name: maven
     run_list:
