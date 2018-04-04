@@ -34,6 +34,7 @@ env:
   - TEST="$KITCHEN_CMD maven-ubuntu-1404"
   - TEST="$KITCHEN_CMD maven-ubuntu-1604"
   - TEST="$KITCHEN_CMD maven-centos-6"
+  - TEST="$KITCHEN_CMD systemd-ubuntu-1604"
   global:
   - KITCHEN_CMD="kitchen test -d always"
   - KITCHEN_YAML=.kitchen.cloud.yml
