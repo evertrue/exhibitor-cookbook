@@ -4,7 +4,7 @@ driver:
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
   security_group_ids:
     - ci-testing
-  instance_type: c3.large
+  instance_type: c5.large
   interface: public
   tags:
     Env: public
