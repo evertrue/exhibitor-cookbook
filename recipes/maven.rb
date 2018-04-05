@@ -33,7 +33,7 @@ end
 
 execute 'build exhibitor' do
   cwd     build_path
-  command 'mvn clean package'
+  command "#{node['maven']['m2_home']}/bin/mvn clean package"
   not_if  { File.exist? jar_path }
 end
 

@@ -30,7 +30,7 @@ end
 
 execute 'build exhibitor' do
   cwd     build_path
-  command 'gradle shadowJar'
+  command "#{node['et_gradle']['home_dir']}/bin/gradle shadowJar"
   not_if  { File.exist? jar_path }
 end
 
