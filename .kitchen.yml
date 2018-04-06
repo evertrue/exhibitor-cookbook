@@ -1,15 +1,46 @@
 ---
 driver:
-  name: vagrant
+  name: dokken
+  privileged: true  # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
+  name: dokken
 
 platforms:
   - name: ubuntu-14.04
+    driver:
+      image: dokken/ubuntu-14.04
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install sudo -y
+
   - name: ubuntu-16.04
+    driver:
+      image: dokken/ubuntu-16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install sudo -y
+
   - name: centos-6
+    driver:
+      image: dokken/centos-6
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/yum install sudo -y
+
   - name: centos-7
+    driver:
+      image: dokken/centos-7
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/yum install sudo -y
+
 
 suites:
   - name: default

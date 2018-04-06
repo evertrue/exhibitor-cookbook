@@ -1,5 +1,5 @@
 dist: trusty
-sudo: false
+sudo: true
 language: ruby
 cache:
   directories:
@@ -10,39 +10,31 @@ addons:
     - chef-stable-trusty
     packages:
     - chefdk
+services: docker
 if: "(type = pull_request) OR (tag IS present) OR (branch = master)"
 before_install:
-- openssl aes-256-cbc -K $encrypted_fa513a61827b_key -iv $encrypted_fa513a61827b_iv
-  -in travis_ci_ec2.pem.enc -out ~/.ssh/travis_ci_ec2.pem -d
 - chef --version
 - eval "$(chef shell-init bash)"
 install:
 # needed to properly test w/ magic’s properties_config()
 - chef gem install java-properties
-- chef gem install kitchen-sync
-- berks
+before_script:
+- sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
 script: $TEST
 env:
   matrix:
   - TEST="chef exec delivery local verify"
-  - TEST="$KITCHEN_CMD default-ubuntu-1204"
   - TEST="$KITCHEN_CMD default-ubuntu-1404"
   - TEST="$KITCHEN_CMD default-ubuntu-1604"
   - TEST="$KITCHEN_CMD default-centos-6"
-  - TEST="$KITCHEN_CMD upstart-ubuntu-1204"
+  - TEST="$KITCHEN_CMD default-centos-7"
   - TEST="$KITCHEN_CMD upstart-ubuntu-1404"
-  - TEST="$KITCHEN_CMD upstart-ubuntu-1604"
-  - TEST="$KITCHEN_CMD maven-ubuntu-1204"
-  - TEST="$KITCHEN_CMD maven-ubuntu-1404"
   - TEST="$KITCHEN_CMD maven-ubuntu-1604"
   - TEST="$KITCHEN_CMD maven-centos-6"
   - TEST="$KITCHEN_CMD systemd-centos-7"
   - TEST="$KITCHEN_CMD systemd-ubuntu-1604"
   global:
   - KITCHEN_CMD="kitchen test -d always"
-  - KITCHEN_YAML=.kitchen.cloud.yml
-  - secure: D+FwRzJvPsSmJkyYJDj70kv8F9D53uglqkZZQSeQLy4C5VxnSSHaeJ5e9PklmRYD9bqkh1YgBTMMCr5jlGtbkwDAeZ9sdeYiAp+V4Qq/mGYS32Sx5w6OVD4m04EfdraJ1XphBquLtvYTtwCT5128yrl5MLkk9wUbodiU/rwbZQw=
-  - secure: JRybSRyM7fzHj22IpAVzvSE5rkP19pJnp/+GP7Njuw5RIK0cIFW55eEx4c+vBNDRxQp50JHGGQmZwEeFsPKT9OHoz8SpoEIAgKnjTGnnpg3EIdPcgdVlMY7TC7FerMVbzSey9IHhf9eip89/r9U8ADPOfTC0zVnuEfMl+8WRpXo=
 notifications:
   slack:
     secure: NtbgXZwevcpjug1vXn8TdM+un69ZALwIrTJ8lr5BMX7+n/4zH5qQjvX81ziq+s1Ipsnz3a/bE6ARaeZn6TtZJWU5hyG7lFSYhN9TeQddudqXphw8CBJ45VUdBPmbT9eWzWM36Hx4sB5Fb6y54TTqEL4hBODFRKueRQDFmPSwSqA=
