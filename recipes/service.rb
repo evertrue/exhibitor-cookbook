@@ -51,6 +51,21 @@ when 'runit'
     options        service_conf
     action         node['exhibitor']['service_actions']
   end
+when 'systemd'
+  template '/etc/systemd/system/exhibitor.service' do
+    source    'exhibitor.systemd.erb'
+    owner     'root'
+    group     'root'
+    variables service_conf
+    mode      '0644'
+    notifies  :restart, 'service[exhibitor]', :delayed
+  end
+
+  service 'exhibitor' do
+    provider Chef::Provider::Service::Systemd
+    supports status: true, restart: true, reload: true
+    action   node['exhibitor']['service_actions']
+  end
 else
   Chef::Log.error('You specified an invalid service style for Exhibitor, but I am continuing.')
 end

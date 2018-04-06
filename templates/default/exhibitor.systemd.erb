@@ -1,0 +1,16 @@
+[Unit]
+Description=exhibitor centralized coordination service
+After=network.target
+
+[Service]
+ExecStart=<%= @java_home %>/bin/java -Dlog4j.configuration=file://<%= @log4j %> -jar <%= @jar %> <%= @cli %>
+RestartSec=5s
+Restart=on-failure
+User=<%= @user %>
+Group=<%= @user %>
+SyslogIdentifier=exhibitor
+LimitNOFILE=8192
+MountFlags=private
+
+[Install]
+WantedBy=multi-user.target

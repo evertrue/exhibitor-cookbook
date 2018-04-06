@@ -34,3 +34,14 @@ suites:
     attributes:
       exhibitor:
         install_method: maven
+
+  - name: systemd
+    run_list:
+      - recipe[exhibitor::default]
+      - recipe[exhibitor::service]
+    attributes:
+      exhibitor:
+        service_style: systemd
+    includes:
+      - ubuntu-16.04
+      - centos-7
