@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 5.0.0
+
+* Upgrade dependencies:
+    - `runit` v4.x
+    - `maven` v5.x
+    - `zookeeper` v10.x
+* Use the `zookeeper` cookbook’s version of ZooKeeper
+* Drop support for Ubuntu 12.04
+* Update CentOS testing & support
+* Set an absolute path for `mvn` & `gradle` to fix some CentOS support
+* Add SystemD support (#47)
+
 ## 4.2.0
 
 * Add defining the mirror (#46)
