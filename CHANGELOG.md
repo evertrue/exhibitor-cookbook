@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.2.0
+
+* Add defining the mirror (#46)
+* Add testing on Ubuntu 16.04
+
 ## 4.1.0
 
 * Allow ZooKeeper to be installed to other directories using `node['zookeeper']['install_dir']` attribute
