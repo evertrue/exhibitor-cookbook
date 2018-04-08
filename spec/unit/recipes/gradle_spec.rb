@@ -1,12 +1,12 @@
 #
 # Cookbook Name:: exhibitor
-# Spec:: maven
+# Spec:: gradle
 #
 # Copyright (c) 2016 EverTrue, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'exhibitor::maven' do
+describe 'exhibitor::gradle' do
   context 'When all attributes are default, on Ubuntu 16.04' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new

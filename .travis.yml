@@ -17,6 +17,8 @@ before_install:
 - chef --version
 - eval "$(chef shell-init bash)"
 install:
+# needed to properly test w/ magic’s properties_config()
+- chef gem install java-properties
 - chef gem install kitchen-sync
 - berks
 script: $TEST
