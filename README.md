@@ -6,6 +6,16 @@ Chef cookbook for installing and managing Netflix's
 [Exhibitor](https://github.com/Netflix/exhibitor), a co-process for Apache
 Zookeeper.
 
+## Caveats
+
+Attempting to install Exhibitor, using Maven, on Ubuntu 14.04, will result in an error:
+
+```
+[ERROR] Plugin org.apache.maven.plugins:maven-clean-plugin:2.5 or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.plugins:maven-clean-plugin:jar:2.5: Could not transfer artifact org.apache.maven.plugins:maven-clean-plugin:pom:2.5 from/to central (https://repo.maven.apache.org/maven2): java.lang.RuntimeException: Unexpected error: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty -> [Help 1]
+```
+
+As a result, we do not support this.
+
 ## Usage
 
 In particular, two key attribute hashes drive this cookbook.

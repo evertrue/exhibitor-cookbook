@@ -34,6 +34,8 @@ suites:
     attributes:
       exhibitor:
         install_method: maven
+    excludes:
+      - ubuntu-14.04
 
   - name: systemd
     run_list:
