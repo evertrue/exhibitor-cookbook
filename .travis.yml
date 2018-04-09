@@ -18,6 +18,8 @@ before_install:
 install:
 # needed to properly test w/ magic’s properties_config()
 - chef gem install java-properties
+# This fixes https://github.com/rubygems/rubygems/issues/2213
+- sudo chef exec gem update --system 2.7.5
 before_script:
 - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
 script: $TEST
