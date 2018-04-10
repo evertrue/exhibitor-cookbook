@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.1
+
+* Drop support of Maven-based install on Ubuntu 14.04
+* Refactor testing to use kitchen-dokken (#48)
+
 ## 5.0.0
 
 * Upgrade dependencies:
