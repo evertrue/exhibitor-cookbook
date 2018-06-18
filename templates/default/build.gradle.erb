@@ -24,13 +24,13 @@ repositories {
 }
 
 dependencies {
-    compile 'com.netflix.exhibitor:exhibitor-standalone:<%= @version %>'
+    compile 'io.soabase.exhibitor:exhibitor-standalone:<%= @version %>'
 }
 
 jar {
     manifest {
         attributes (
-            'Main-Class': 'com.netflix.exhibitor.application.ExhibitorMain',
+            'Main-Class': 'io.soabase.exhibitor.application.ExhibitorMain',
             'Implementation-Version': project.version
         )
     }

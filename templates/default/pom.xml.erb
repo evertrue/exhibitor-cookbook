@@ -7,7 +7,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.netflix.exhibitor</groupId>
+            <groupId>io.soabase.exhibitor</groupId>
             <artifactId>exhibitor-standalone</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -34,7 +34,7 @@
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <manifestEntries>
-                              <Main-Class>com.netflix.exhibitor.application.ExhibitorMain</Main-Class>
+                              <Main-Class>io.soabase.exhibitor.application.ExhibitorMain</Main-Class>
                               <Implementation-Version>${project.version}</Implementation-Version>
                             </manifestEntries>
                         </transformer>
