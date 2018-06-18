@@ -58,7 +58,7 @@ when 's3'
       mode 00400
       content(
         node['exhibitor']['s3'].map do |k, v|
-          "com.netflix.exhibitor.s3.#{k}=#{v}"
+          "io.soabase.exhibitor.s3.#{k}=#{v}"
         end.join("\n")
       )
     end
